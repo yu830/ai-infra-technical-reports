@@ -1,0 +1,55 @@
+{
+  "scope": "Single-factor local logical-index comparison and separately user-reported package result; no claim that target gain is solely due to indexing.",
+  "generic_source_sha256": "67eb853da7c97585fc43851ef69ffdb5794d8f47f231e44d544497a90e89f2d5",
+  "factor": "Five logical index casts signed32 to unsigned32 when padded_total <= INT32_MAX. Widen before multiplication by physical 64-bit tensor strides; fp32 arithmetic, packing, loads and stores unchanged.",
+  "cuda_compiler_ptx_registers": {
+    "K1024_M4096_G128": [
+      39,
+      31
+    ],
+    "K4096_M4104_G64": [
+      44,
+      31
+    ],
+    "K1031_M4104_G_equals_K": [
+      44,
+      31
+    ]
+  },
+  "local_timing": {
+    "environment": "FlagTree 0.6.1 on CUDA",
+    "measurement": "20 balanced AB/BA pairs, batch64 complete entry with synchronization; Graph16 separate",
+    "K1024_M4096_G64_complete_entry": 1.489,
+    "K1024_M4096_G128_complete_entry": 1.438,
+    "K1031_M4104_G_equals_K_complete_entry": 0.833,
+    "K1031_M4104_G_equals_K_graph": 2.461,
+    "fresh_process_without_graph_or_event_same_odd_case_batch64_complete": 1.292,
+    "root_cause": "UNKNOWN; fresh process and timing state both changed, so the follow-up does not isolate an allocator or Graph cause"
+  },
+  "target_feedback": {
+    "commit": "565e851844b0267abd61a0d86910bd46c1cec229",
+    "expected_local_zip_sha256": "6283b1e65fb7710a4581725bcc28d176cdfc46200acf392c7ff98c2df7fe680a",
+    "average_speedup": 17.46,
+    "reported_passed": 7,
+    "required": 7,
+    "source": "USER_PROVIDED_EVALUATOR_TABLE_AND_ARCHIVE_URL"
+  },
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/notes/rank-uint32-review.md",
+      "sha256": "7d0dc031f3e0e0cb75e02d591f9aaea7df8ec31f40900ca176dfb27c90b9ed82"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/notes/Task161_RANK_TRIAL_20261023_565e851.md",
+      "sha256": "087662b60f3a46a32dd100c89a1d9d6827330758e852638f81237d6c5ed7b405"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-565e851-pass2328/receipt.json",
+      "sha256": "3b28beb6178e4d4e9179364b258f8e474861b37f6a0f71e7b78d96f1b72902ce"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-565e851-pass2328/user-report.txt",
+      "sha256": "ea82075eb0b45bcd7130aad6ca2b7c66dd8d8f3f4fe2a568859ca08a66242a45"
+    }
+  ]
+}

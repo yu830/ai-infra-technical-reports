@@ -1,0 +1,54 @@
+{
+  "scope": "Isolated proposed scheduling change and subsequent local CUDA validation. Forced policy is not a measured target hardware policy.",
+  "baseline_source_sha256": "6e165078b1df178ee5ecc25e6c913be0a55ee2c7a3b273bc9ae62c2af62fabea",
+  "candidate_source_sha256": "7a73c2df6e790b49d07794d99a84fd2ac18c58ef7df61ab61716eaef3c908fa2",
+  "factor": "When guard conditions hold, reuse zeros and scales across a whole group and reduce row-contiguous work items; retain other dispatch paths.",
+  "policy_capture": {
+    "policies": [
+      40,
+      48
+    ],
+    "G64_num_work": [
+      96,
+      48
+    ],
+    "G128_num_work": [
+      192,
+      48
+    ],
+    "G32_and_full_group": "fallback unchanged"
+  },
+  "offline_recovered_compiler": {
+    "status": "PASS_12_RECORDS",
+    "planmemory": "UNCHANGED",
+    "vcast": "UNCHANGED",
+    "sync_barrier": "UNCHANGED",
+    "objects": "SMALLER_ALL_SIX_PAIRED_CASES",
+    "scope": "recovered compiler and specified probes; not evaluator version or target execution"
+  },
+  "local_cuda": {
+    "status": "PASS_LOCAL_CUDA_WITH_STATED_SCOPE",
+    "environments": [
+      "default",
+      "flagtree061"
+    ],
+    "policy_shape_records_per_environment": 16,
+    "changed_input_calls_per_record": 2,
+    "timing": "NOT_RUN_GRAPHICS_ACTIVITY"
+  },
+  "decision": "NEEDS_TARGET_VERIFICATION at probe; R18 user-reported aggregate cannot isolate this change.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-huawei-groupstream/reflection.md",
+      "sha256": "29cd744a2951543841b4511a1c960f453f92077cdc4bd03b4ab8e099455a952a"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-huawei-groupstream/results-summary.json",
+      "sha256": "e1f06a78a9597d284f5b87ce6011117650316ed8e43100794198c6c9d440ab35"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-huawei-cuda-validation/summary.json",
+      "sha256": "41ac5788f46717a63d4b774fd3b5a3d2e4969ff5df4567da6b65fa5a2cfd82ca"
+    }
+  ]
+}

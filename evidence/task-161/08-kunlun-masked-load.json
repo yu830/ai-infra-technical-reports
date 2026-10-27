@@ -1,0 +1,59 @@
+{
+  "scope": "One source-factor compiler experiment and two unpaired user-reported platform packages. Remote bytes and actual loaded source are unknown.",
+  "factor": "Delete explicit other=0/0.0 for three masked qweight, zeros, scale loads; retain masks, arithmetic, launch and output mask. Inactive-lane values need not be consumed by valid output lanes.",
+  "source_sha256": {
+    "baseline": "215025addd48cc16b99967b7352c6d9852fde58d860b766cfeb6f04aa8214d82",
+    "candidate": "9266d5098f4ae20263a3208710c9eac77092a0fbd0868bac20ce0f104311498b"
+  },
+  "other_local_members_equal": true,
+  "offline_xpu061_aligned": {
+    "zero_fill_stores_before": "4 i32 + 2 fp16",
+    "zero_fill_stores_after": 0,
+    "mfence_calls_before": 8,
+    "mfence_calls_after": 5,
+    "scope": "TTXIR to LLVM to ELF to XPUBIN, not target execution; corrected call counts"
+  },
+  "feedback": [
+    {
+      "commit": "d3505ad8b270b79371c572f0d69539f7f3c1cad1",
+      "expected_local_zip_sha256": "cd74a2e2fdb1ad0275055ba228c8b3f1b624e187200182a8f489b2eb4faa918f",
+      "reported_passed": 7,
+      "reported_kunlun_speedup": 19.64,
+      "reported_platform_average": 18.74
+    },
+    {
+      "commit": "6c351b5dd46c5582cf20afe77d1332e63e6c81c6",
+      "expected_local_zip_sha256": "4f7751f809279b697633436db5d58fc202a12620e8bdffea3eebe016611efaeb",
+      "reported_passed": 7,
+      "reported_kunlun_speedup": 21.96,
+      "reported_platform_average": 19.09
+    }
+  ],
+  "interpretation": "Positive unpaired target signal for the single local member change, not a causal measurement or speed guarantee; independent target variance and remote source identities unknown.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/notes/task161-noother-phase-retrospective-20261024.md",
+      "sha256": "10e00acd1e325dc6e69862face1898d90c6473d4e286a3716bae55285f123e7f"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-k4096-noother/ir-comparison.json",
+      "sha256": "363b28b045642f642922d4641f832961882337034d916034140f73a98d4ee4df"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-official-d3505ad-pass1550/receipt.json",
+      "sha256": "5c64d79ba31f3603f5d58f8f91d8eeb5cd2d58b2633da577ae007440c4d8e110"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-official-d3505ad-pass1550/user-report.txt",
+      "sha256": "b25e3f2b7e341a0bf27ba325530c8f9e53673e3682d368d805a6cd9886bb41a6"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-official-6c351b5-pass1639/receipt.json",
+      "sha256": "417133c6ad49c2b2a0193b2b0e3bc9851795c0d2facb11a06afac20acf708f33"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-official-6c351b5-pass1639/user-report.txt",
+      "sha256": "f9d890951b77c73c23baf452cc7c6904433da866a2a9e1774e8cc1efca79f88f"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+# FlagOS Task 161: Developing AWQ Dequantization Across Multiple Chips
+
+## Scope and result
+
+AWQ stores weights and zero points as packed 4-bit values. Task 161 expands them with group-wise FP16 scales into a dense FP16 matrix. The engineering problem extends beyond the shifts: compilers can lower memory access, masks, indexing and scheduling differently, and an improvement in a captured kernel is not necessarily an improvement in the complete entry point or the platform ranking.
+
+This report freezes the evidence at **23:29:48 on October 27, 2026, Asia/Taipei**. The task was still active at canonical revision 208. The source worktree was clean at `02a3248d2681d98d328a9b9352dd12c067659cc5`; the Task workspace file still described an older R8 snapshot. This is a historical snapshot; R19 development and later status are outside its scope. The latest local candidate, R18, has ZIP SHA-256 `de6f6e3be71d320f943bf52a52e59df59674370e709f7c1faf9ab913a9ca1038`. A user-forwarded platform result for the matching filename reported **7/7 and an average speedup of 29.51×**. This is an operator-level platform metric, not an end-to-end inference speedup. The task names SGLang’s `awq_dequantize_triton` as its baseline; the version actually used by the evaluator is unknown. The local archive and its members were verified, but the remote archive bytes, evaluation ID, per-case logs and source actually loaded by the evaluator remain unknown. [R18 feedback extract](evidence/task-161/01-r18-r17-feedback.json) · [Local package and source identity](evidence/task-161/09-local-source-map.json)
+
+## 1. Establishing what each packed value means
+
+`qweight` is `int32[K, M/8]`, `zeros` is `int32[K/G, M/8]`, and `scales` is `fp16[K/G, M]`; the result is `fp16[K, M]`. The group size G is inferred from the shapes and may be 32, 64, 128 or all of K. Each 32-bit word holds eight nibbles. Their logical order within a word is `[0, 4, 1, 5, 2, 6, 3, 7]`, rather than natural order. For column `c`, with `l = c % 8`, the shift is `4 * (l // 2 + 4 * (l % 2))`, giving `[0, 16, 4, 20, 8, 24, 12, 28]`. The same mapping applies to weights and zero points. Row `k` uses group `k // G`:
+
+```text
+q = (qweight[k, c // 8] >> shift(c)) & 15
+z = (zeros[k // G, c // 8] >> shift(c)) & 15
+out[k, c] = fp16((q - z) * scales[k // G, c])
+```
+
+The baseline converts nibbles to FP32, subtracts and multiplies, then stores FP16. Later paths form the integer difference first or use exact FP16 intermediates. Since the difference lies between −15 and 15, finite-scale rounding can be checked for a particular implementation; that alone does not establish bitwise equivalence for all nonfinite values, NaNs or backends. Validation checked complete outputs, repeated calls with changed inputs and input immutability. The task statement says “exact” and also specifies the default `torch.testing.assert_close` tolerance without giving a numeric tolerance; the development did not treat this ambiguity as permission to relax correctness. The supplied reference cannot apply its `.view` to certain transposed inputs. Those cases were checked with an independent oracle or a contiguous reference copy while retaining the reference limitation as `UNSUPPORTED`. [Contract and validation locations](evidence/task-161/06-grid-wordfirst.json)
+
+## 2. From a launchable kernel to group-wise reuse
+
+The initial flat implementation assigned work by output element. At source level, adjacent elements repeatedly request the same packed word, and rows in a group repeatedly request its zero points and scales. Repeated indexing, loads and a large program count were plausible costs, but hardware counters did not establish how much bandwidth or time each consumed.
+
+The first candidate, `7602e49`, received a user-reported 5/7 result. Huawei reported `EE1003 coreDim132608 >65535`; the accompanying numerical comparisons did not identify a numerical root cause. The follow-up `b8b3074` capped the Ascend grid at 1024 and made each program loop over logical tiles. The first user report for this package was 5/7. A separate 18:20 reevaluation of the same ZIP reported 6/7: Huawei passed at only **0.19×**, while chip B still failed at the evaluation-task submission stage. The original `coreDim` error was not reported again in that reevaluation, but whether the grid change directly caused this is unknown; the other failure and numerical cause remained unexplained. [Initial failure, grid repair and feedback](evidence/task-161/06-grid-wordfirst.json)
+
+The next experiment, `69f2e6b`, retained the generic flat file and tried a **four-row by 32-packed-word** tile for Ascend. Each weight word yields eight columns, while a group's zero points and scales can be broadcast over four rows. This is a change in data organization and source-level reuse, not a measured reduction in DRAM traffic. The control was the earlier `b8b3074` Ascend member. Both candidates underwent local CUDA full-output and changed-input checks. For the FlagTree CUDA comparison, each complete-entry sample contained 64 wrapper calls followed by synchronization, with 20 balanced AB/BA pairs; a captured 16-call Graph span was measured separately.
+
+| Self-designed `K×M` case | G | Old/new complete-entry median ratio | Old/new Graph median ratio |
+|---|---:|---:|---:|
+| `1024×4096` | 64 | 1.205× | 1.771× |
+| `1024×4096` | 128 | 1.265× | 1.829× |
+| `1024×4096` | K | 0.927× | 1.797× |
+
+A ratio above 1 favors the new implementation. The G=K counterexample mattered: the Graph gain did not erase the complete-entry regression. A 32-row variant passed correctness but used more registers and regressed on several local Graph cases, so it was rejected. The four-row variant did not replace the generic implementation everywhere either. A later user-forwarded evaluation of `69f2e6b` reported 7/7, a **12.65×** platform average and **2.17×** on Huawei. The package became a seven-chip rollback baseline at that point; it did not prove that reuse helped every shape or chip. [Experiment conditions and results](evidence/task-161/06-grid-wordfirst.json)
+
+The later `80deedb` streaming experiment split a 32-row chunk into eight four-row steps and reused zeros and scales outside the loop when group-size and work-item guards held; otherwise it fell back to R4. The measured FlagTree CUDA complete-entry batch64 ratios without Graph/Event ranged from **0.991× to 1.007×** in the stream cases, so there was no CUDA performance adoption. A subsequent user report for that package gave 7/7, **2.63×** on Huawei and a **17.85×** platform average. This is an independent target observation; multiple members differed from the earlier R4 package, so the cross-package difference does not isolate streaming. [Streaming experiment](evidence/task-161/11-ascend-stream.json)
+
+## 3. Narrowing indices: compiler evidence and complete-entry timing
+
+Another line of work targeted flat indexing. If the padded logical element count fits within `INT32_MAX`, logical indices are nonnegative and unsigned 32-bit division is a candidate. **Physical addresses**, however, still depend on real strides and potentially much larger spans. The `565e851` control changed five logical casts from signed32 to unsigned32, then widened row, column, group and packed-column indices to int64 before multiplying by strides. Load order, floating-point arithmetic, stores and launch settings were held fixed.
+
+The mechanism was checked in compiled code. In paired FlagTree CUDA PTX, register counts changed from 39 to 31 for `1024×4096/G128` and from 44 to 31 for `4096×4104/G64`; signed-division correction also disappeared in the recorded lowering. These are compiler observations, not measurements of occupancy or the dominant bottleneck. In the same local timing run, complete-entry ratios were **1.489× and 1.438×** for G64 and G128, but `1031×4104/G=K` produced **0.833×** for the complete entry and **2.461×** for Graph. A later fresh-process batch64 comparison that created neither Graph nor Event gave **1.292×** for that odd G=K case. Because process state and timing boundary changed together, the follow-up supports an involvement of state or measurement scope but does not isolate allocator, Graph, scheduling or another cause. It does not invalidate the earlier regression. [Index experiment and source records](evidence/task-161/07-logical-uint32.json)
+
+The decision was therefore a **conditional target trial**, with the previous package retained for rollback, not a claim that every shape was faster. The `565e851` package subsequently received a user-reported 7/7 and **17.46×** platform average. Those cross-evaluation aggregates do not isolate the contribution of index narrowing.
+
+In R18 the problem was taken further. When alignment and scale-stride guards permit, the generic pair32 path loads two adjacent FP16 scales as one 32-bit value and writes two FP16 results in one 32-bit store; the shifts for adjacent columns differ by 16. Beyond logical indices, `generic_offset_r17.py` checks **physical offset** bounds for q/zero and packed scales at compile time. It uses U32 intermediates only for nonnegative strides and maxima at most `INT32_MAX`, otherwise falling back to int64. Boundary compilation checked `2,147,483,647` and `2,147,483,648`. Two local CUDA environments covered real tails, non-unit strides, scale-layout fallback and changed inputs. Compiler resources were unchanged or lower in the sampled cases, but XPU offline binary sizes moved in opposite directions across versions; that does not establish target speed. Target execution with negative strides remained unrun. [Physical-offset checks](evidence/task-161/03-guarded-offsets.json)
+
+## 4. Kunlunxin: the effect of one masked-load argument
+
+One Kunlun experiment retained the load and output masks, block size, grid, arithmetic and addresses, and removed only explicit `other=0/0.0` from the three masked qweight, zeros and scale loads. Valid outputs must not consume values from invalid lanes; the actual layout and full-output tests matter, and removing an arbitrary mask cannot be assumed safe.
+
+In the recorded XPU 0.6.1 offline compilation, the aligned case's LLVM-level zero-fill stores fell from **four i32 plus two FP16 stores to zero**, while `mfence` calls fell from **8 to 5**; data-transfer call counts stayed unchanged. This is an observation about compiled output. Target disassembly and hardware counters were unavailable, so it does not quantify changes in real bandwidth, occupancy or fence latency. Two local CUDA correctness environments passed within their stated limits.
+
+The local `d3505ad` and `6c351b5` packages had identical hashes for their other members and differed only in the Kunlun member. The two independent, unpaired user reports each showed 7/7; their Kunlun values were **19.64×** and **21.96×**, and their platform averages **18.74×** and **19.09×**. This was a target signal supporting further use of the direction, not a precise causal latency estimate. The source loaded remotely was not confirmed. [Control, IR and feedback](evidence/task-161/08-kunlun-masked-load.json)
+
+## 5. Reuse and numerical rearrangement on the way to R18
+
+The Huawei question shifted from “can it launch?” to “how does the compiler lower decoding?” R7 converted the exact difference to FP16 before multiplying by the FP16 scale on the row-contiguous path; complete-entry CUDA timings were mixed and did not establish a stable local gain. Relative to R7, the local R8 package changed only the Huawei member: tensor-valued shift unpack became constant shifts plus interleaves in the row-contiguous decode path, while other paths, the FP16 multiply, grid and masks remained. In the recovered Ascend compiler, two scalar shift loops disappeared. The tradeoff was a simulated policy40/W128 planned UB high-water increase from **22,624 B to 165,376 B**. That is a compiler-model observation, not measured target memory use or latency. Two unpaired, user-forwarded 7/7 evaluations reported a Huawei value of **4.13×** for R7 and **20.12×** for R8, with platform averages **25.89× and 28.21×**. Both rows lacked headers, so the Huawei columns were inferred from the established order. The one-member package comparison made the direction worth retaining, but remote bytes, loaded source and per-case timing were unknown; the difference is not a rigorous causal estimate. R8 became the development baseline at that point, R7 remained a separate rollback, and a later variant that reintroduced scalar shifts was rejected. [Constant-shift experiment and feedback](evidence/task-161/10-huawei-constant-shift.json)
+
+A further question was how to reuse group metadata without leaving too little work. The R18-selected `ascend_groupstream_r17.py` reuses a full group's zeros and scales only under full-tile and work-domain guards; other layouts retain fallback paths. In policy capture at fixed grids 40/48, G64 `NUM_WORK` changed **96→48** and G128 **192→48**. The recovered Ascend compiler accepted the specified tests without an observed increase in PlanMemory, vcast or synchronization counts. Both local CUDA environments passed 16 forced-policy/shape records with complete outputs and changed inputs. The forced policies do not establish the real device configuration, and these records did not provide paired Huawei-device latency. [Group-reuse experiment](evidence/task-161/04-ascend-group-stream.json)
+
+For Hygon, `hygon_half_r17.py` tested a different decode dataflow. Each nibble `n` is represented by FP16 bits `0x6400+n`, whose value is `1024+n`; subtracting two such values cancels the bias and yields exact `q-z`, followed by the existing FP16 scale multiply and vector store. The comparison held grid, strides and fallback fixed. Local CUDA checks covered all 65,536 FP16 scale encodings, differences −15 through 15, and changed inputs; non-NaN output bits and the NaN mask matched. Offline HCU compilation used a **hypothetical** `gfx936` argument and produced 15,077 bytes of LLIR versus 13,401 bytes for the control. That does not establish the real target identity or speed. [Numerical control](evidence/task-161/05-biased-half.json)
+
+R18 replaced the generic, Huawei and Hygon members simultaneously on the local R17 base; the `awq_dequantize_metax.py`, `awq_dequantize_iluvatar.py` and `awq_dequantize_kunlunxin.py` members remained byte-identical. R17's user-forwarded result was 7/7 and **29.47×** average; R18's was 7/7 and **29.51×**. The evaluations were unpaired and rounded, and metrics associated with unchanged members moved too. The 0.04 difference in displayed speedup cannot be assigned to any one change or used as a quantitative estimate of target noise. These are separate package results; neither inherits the other's PASS or chip values. [R17/R18 identity and feedback](evidence/task-161/01-r18-r17-feedback.json)
+
+At the cutoff, the evidence levels were distinct: source-bound local CUDA correctness checks for the three members selected for R18 passed within the stated cases; offline compilation established only the recorded compiler stages; these local probes did not run paired timing directly on Huawei, Hygon or Kunlunxin hardware. Platform target results came from the user-forwarded report, and the public leaderboard came from a separate snapshot. None of these replaces another.
+
+## 6. Platform feedback, public ranking and open questions
+
+The forwarded R18 row has no headers. The labels below are inferred from the task's established column order; individual chip statuses are inferred from the reported 7/7 aggregate, and per-case logs are unavailable. The manufacturers of international chips A and B are unknown.
+
+| Inferred label | R18 platform per-chip speedup |
+|---|---:|
+| Tianshu | 26.05× |
+| Muxi | 40.80× |
+| Hygon | 34.25× |
+| Kunlunxin | 47.18× |
+| Huawei | 20.59× |
+| International chip A | 19.84× |
+| International chip B | 17.90× |
+
+At 23:21 the public leaderboard snapshot displayed the team's row at **rank 2**, with a platform average of **29.45557143×** and ranking score **1.81361111**. That row matches the earlier R16 values and time, not R18. It cannot establish R18 as rank 2: R18's ranking and score remain `UNKNOWN`. Platform average, per-chip speedup, ranking score and task rank are separate quantities. [Public-row extract](evidence/task-161/02-public-standings.json)
+
+The earlier chip B “evaluation task submission failed” message occurred at the scheduling/submission stage. The same `69f2e6b` package later reported B as passing without a source change. The symptom recurred in later evaluations, while R17 and R18 again reported 7/7. The evidence supports only that the later evaluations did not report that failure; it does not establish a platform root cause or a kernel fix. Paired target-device complete-entry controls for the R18 changes, the evaluator's loaded source and per-case results are still missing. The objective of one valid package ranking first on all seven chips has not been established.
+
+## Sources and attribution
+
+The evidence JSON files bundled with this report are sanitized reading extracts, not original platform receipts. Each preserves project-relative original locations and SHA-256 hashes so that the raw logs, protocols, source and reflections can be traced in the original workspace. Key source locations at the recorded commit include `research/awq_dequantize_rank/generic_offset_r17.py`, `research/awq_dequantize_huawei/ascend_groupstream_r17.py` and `research/awq_dequantize_word_r1/hygon_half_r17.py`; earlier candidates and packages are bound in their respective extracts. The raw materials are not published with this report.
+
+Candidate source files retain **Copyright 2026, The FlagOS Contributors** and their Apache-2.0 notices; Git history records Yu Jiacheng as author. OpenAI Codex and other AI assistance were used in development and in preparing the report, including analysis, implementation, validation and review. KernelGen calls failed at the time; the direct implementation is not attributed to KernelGen. Existing source attribution and evidence limits are preserved.

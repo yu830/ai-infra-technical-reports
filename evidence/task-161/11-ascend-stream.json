@@ -1,0 +1,34 @@
+{
+  "scope": "E3 streaming experiment and separate user-reported platform feedback; no target causality claim.",
+  "source_commit": "80deedb18310b6e66be875ece6e13ec453c4f792",
+  "local_zip_sha256": "e2bb06347b9de7e87806bda54ca8ae4a05c98c5ed8bdde94e92b92b3ec32320f",
+  "local_ascend_member_sha256": "8212c8ed496e34393f8b06a7e7ed92b6f323aa2146b0e7e8d9f707d4ed718348",
+  "mechanism": "For G >= 32 and stream work items >= 1024, split a 32-row chunk into eight four-row steps and reuse zeros/scales; otherwise use original R4 kernel.",
+  "local_cuda": "FlagTree CUDA complete entry, 20 balanced pairs, batch64 without Graph/Event: E3 cases ranged 0.991 to 1.007 old/new. No local CUDA performance adoption.",
+  "user_reported_feedback": {
+    "reported_passed": 7,
+    "required": 7,
+    "huawei_speedup": 2.63,
+    "platform_average": 17.85,
+    "remote_archive_identity": "PENDING_SEPARATE_VERIFICATION",
+    "server_loaded_source": "UNKNOWN"
+  },
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/notes/Task161_STREAM_TRIAL_20261024_80deedb.md",
+      "sha256": "867fb1516548ad3cacf4f380a1e4949211e81acb7bc420bc68b84fe97a84b890"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-official-80deedb-pass1341/receipt.json",
+      "sha256": "d3132072f84ed8724df517d0283acbb0225e6e942bc31f99fd8e922bc9337c77"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-official-80deedb-pass1341/user-report.txt",
+      "sha256": "a914c562eb0b5cccb74d3a3c7e581c90d85f254a69883f5a68641eba2513821e"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261024-stream-r4c32/results.json",
+      "sha256": "784c767472ce44e88747e3634250d4409d165dafac682a5617f4a3ed5a9caac3"
+    }
+  ]
+}

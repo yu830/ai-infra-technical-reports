@@ -1,0 +1,136 @@
+{
+  "scope": "Sanitized extracts from original user-forwarded feedback and historical local CUDA experiments. Remote archive bytes and evaluator-loaded sources are unknown.",
+  "flat_candidate": {
+    "commit": "7602e49c47e700e59404fdc6ee9ba3bec43c64d8",
+    "local_zip_sha256": "4974140d399ae9b7b7cb2da57740fee67fff690130a41f691c624340777392b3",
+    "user_reported_passed": 5,
+    "required": 7,
+    "huawei_error": "EE1003 coreDim132608 >65535",
+    "huawei_numerical_root_cause": "UNKNOWN; later mismatch statistics contradict and may be cascading launch/comparison errors"
+  },
+  "wordfirst_candidate": {
+    "commit": "69f2e6b1a0cf052e642d1ea03b4bc6ef6c06b1f2",
+    "local_zip_sha256": "bf7b3fc4fc89740fe9dadc385036252e2771d3a898d3b6732c9e3b38c6d5d681",
+    "reported_passed": 7,
+    "required": 7,
+    "reported_platform_average": 12.65,
+    "reported_huawei_speedup": 2.17,
+    "result_type": "USER_PROVIDED_EVALUATOR_TABLE"
+  },
+  "local_cuda_comparison": {
+    "baseline_commit": "b8b3074",
+    "candidate_commit": "69f2e6b",
+    "changed_factor": "Ascend member: flat output loop versus group-aligned 4-row/32-word tile, with capped grid and reuse; generic remains unchanged",
+    "case": "K=1024 M=4096",
+    "environment": "FlagTree 0.6.1 on CUDA",
+    "measurement": "20 balanced AB/BA pairs; full entry = 64 wrapper calls then one synchronization, amortized; Graph = captured 16-call span, no normal wrapper/allocation",
+    "full_entry_baseline_over_candidate": {
+      "G64": 1.205,
+      "G128": 1.265,
+      "G_equals_K": 0.927
+    },
+    "graph_baseline_over_candidate": {
+      "G64": 1.771,
+      "G128": 1.829,
+      "G_equals_K": 1.797
+    },
+    "correctness": "75 cases per CUDA environment plus 1968128 finite scale/delta combinations; full output and changed input; reference transpose limitations retained"
+  },
+  "decision": "Do not replace generic path uniformly; retain Ascend target diagnostic and R4 target feedback separately.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-7602e49-feedback/receipt.json",
+      "sha256": "1f68ab5ccdd7e5a5aafdce7935cab22dae3e5cb10971497dce69a96545c85e63"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-7602e49-feedback/user-report.txt",
+      "sha256": "23f1513d181f627ca858b8d9d606b803fae3d8b765b8971279ca0b7260fe7b05"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/notes/Task161_WORDFIRST2D_TRIAL_20261023_69f2e6b.md",
+      "sha256": "192ea6bf2f1114db77bc574dc9763cfbed6ed1d8a78d9c1190a90ba22680e4db"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-wordfirst-direction/results.json",
+      "sha256": "6094ce177eba611cb342cd85fe438b5b275b4246658f4173bb2f0d4b3d6850ec"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-wordfirst-direction/protocol.json",
+      "sha256": "7b18e70e85fbcf22d9fa273bf7bd0de27e35e70e897fb715a739e713401cb2ed"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-69f2e6b-pass2208/receipt.json",
+      "sha256": "3ec31208fa98e5d3ee40497cb4a2292515c7033594176b1b6b0a88863875eb2b"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-69f2e6b-pass2208/user-report.txt",
+      "sha256": "a88aa3ea9c87fd18ffec44e6dd10855ea295cd82f8efe12af708db0f95f18901"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-b8b3074-retry1820/receipt.json",
+      "sha256": "c94e9a147a196b5e83986bd846935093e46f93a63eda2beadb7b9aec3d7179f3"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-b8b3074-retry1820/user-report.txt",
+      "sha256": "5876deeebadcab55310d50574b04c54eba24d7af97ac4e08a245195ee0b79953"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/spec/contract.json",
+      "sha256": "769bdaece384626a6ec11424ed9e64f78856364f3eac09ed0ea614098112f99b"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/spec/original-section.txt",
+      "sha256": "86ba4c8b0fa8b1515d01ecc5d308071420c1cabadb3bceb7c8cecd499e2ddf17"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261023-official-b8b3074-feedback/receipt.json",
+      "sha256": "754b2352466f7f81180ae0281cff5e5f8edc334c9b2eb37f0fcea725015b51f4"
+    }
+  ],
+  "gridfix_candidate": {
+    "commit": "b8b307413abee946a11fcf7c50f8064dae0a3037",
+    "local_and_downloaded_zip_sha256": "5de02da5d33b8ff5dd73324950f0063f5c172d28c5fc5b92d65bebe5ae60d694",
+    "remote_archive_identity": "REMOTE_OBJECT_VERIFIED_BYTE_IDENTICAL_TO_LOCAL_DELIVERY_AND_1516_OBJECT",
+    "reported_passed": 6,
+    "required": 7,
+    "reported_huawei_speedup": 0.19,
+    "card_b_stage": "EVALUATION_TASK_SUBMISSION",
+    "card_b_root_cause": "UNKNOWN"
+  },
+  "recorded_reference": {
+    "task_baseline": "sglang.kernels.ops.quantization.awq_triton.awq_dequantize_triton",
+    "research_reference_commit": "904691e0b5dc4516c5bc9771874d03dd0cadb470",
+    "local_reference_copy_sha256": "d619d07a0b58d69e7442d1a14b0947b2555f36ddbb23ab95f005a032b5038351",
+    "evaluator_baseline_version": "UNKNOWN"
+  },
+  "gridfix_first_evaluation": {
+    "reported_passed": 5,
+    "required": 7,
+    "huawei": {
+      "status": "PASS",
+      "speedup": 0.19,
+      "threshold_pass": true,
+      "interpretation": "Target result supports launch fix; correctness/performance accepted by reported evaluator, still slower than baseline; exact loaded file not exposed"
+    },
+    "tianshu": {
+      "status": "FAIL",
+      "stage": "RUNTIME_DEVICE_INITIALIZATION_OR_BACKEND",
+      "root_cause": "UNKNOWN",
+      "kernel_correctness": "UNKNOWN",
+      "speedup": null,
+      "error": "CUDA error: no CUDA-capable device is detected",
+      "additional_user_information": "UNAVAILABLE; user already confirmed no extra logs, do not ask again"
+    },
+    "card_b": {
+      "status": "FAIL",
+      "stage": "EVALUATION_TASK_SUBMISSION",
+      "root_cause": "UNKNOWN",
+      "kernel_correctness": "UNKNOWN",
+      "kernel_performance": "UNKNOWN",
+      "speedup": null,
+      "error": "评测任务提交失败，已停止重试",
+      "kernel_fault_evidence": false
+    },
+    "scope": "First evaluation; a separate retry is recorded in gridfix_candidate."
+  }
+}

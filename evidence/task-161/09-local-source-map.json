@@ -1,0 +1,66 @@
+{
+  "scope": "Local archive members only; no remote archive or evaluator-loaded-source verification. Paths are relative to the source worktree at the stated commit.",
+  "source_commit": {
+    "dirty": false,
+    "expected_dirty": "clean",
+    "expected_head": "02a3248d2681d98d328a9b9352dd12c067659cc5",
+    "head": "02a3248d2681d98d328a9b9352dd12c067659cc5",
+    "worktree": "worktrees/task161"
+  },
+  "local_archive_sha256": "de6f6e3be71d320f943bf52a52e59df59674370e709f7c1faf9ab913a9ca1038",
+  "members": {
+    "awq_dequantize.py": {
+      "crc32": "8ccddfdc",
+      "sha256": "029c376929609a8c1c2b4a12d17ba0363a1f8cec5ce59bafdeebbb2b7f916bd8",
+      "size": 11806
+    },
+    "awq_dequantize_ascend.py": {
+      "crc32": "f39e500a",
+      "sha256": "7a73c2df6e790b49d07794d99a84fd2ac18c58ef7df61ab61716eaef3c908fa2",
+      "size": 29090
+    },
+    "awq_dequantize_hygon.py": {
+      "crc32": "92907da8",
+      "sha256": "45ec8d1e17925ce0abcdbed325f2e2795f46fbfa77b43a92be2f2ca2c2931743",
+      "size": 10873
+    },
+    "awq_dequantize_iluvatar.py": {
+      "crc32": "454247fb",
+      "sha256": "fc8d447765124dbe500e39409e249b0aaa77f6e31be4d98571c5a1b560de3ec1",
+      "size": 16636
+    },
+    "awq_dequantize_kunlunxin.py": {
+      "crc32": "257ab31b",
+      "sha256": "ee9e20f9e00740a48a006449fc858d722a0e9070d1a0bcd3682f1dad9ada3db8",
+      "size": 9674
+    },
+    "awq_dequantize_metax.py": {
+      "crc32": "355f4979",
+      "sha256": "bdc33656886564ddd5ecf0a3d7111104bf674bc80fac3b9f9351347cd812689c",
+      "size": 12829
+    }
+  },
+  "changed_members_vs_r17": {
+    "awq_dequantize.py": {
+      "source_worktree_path": "research/awq_dequantize_rank/generic_offset_r17.py",
+      "sha256": "029c376929609a8c1c2b4a12d17ba0363a1f8cec5ce59bafdeebbb2b7f916bd8"
+    },
+    "awq_dequantize_ascend.py": {
+      "source_worktree_path": "research/awq_dequantize_huawei/ascend_groupstream_r17.py",
+      "sha256": "7a73c2df6e790b49d07794d99a84fd2ac18c58ef7df61ab61716eaef3c908fa2"
+    },
+    "awq_dequantize_hygon.py": {
+      "source_worktree_path": "research/awq_dequantize_word_r1/hygon_half_r17.py",
+      "sha256": "45ec8d1e17925ce0abcdbed325f2e2795f46fbfa77b43a92be2f2ca2c2931743"
+    }
+  },
+  "unchanged_members_from_r17": [
+    "awq_dequantize_iluvatar.py",
+    "awq_dequantize_kunlunxin.py",
+    "awq_dequantize_metax.py"
+  ],
+  "manifest_source": {
+    "project_relative_path": "track1/batch11/tasks/Task161/artifacts/Task161_awq_dequantize_crosschip_r18_20261027_02a3248.manifest.json",
+    "sha256": "0d2630ef877fbbf6b7011dede52fb000271e94071930677d5d6d797dc4abdd6e"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "scope": "Source-bound local CUDA correctness and offline compiler observations for the generic source later included in local R18 ZIP; no target performance attribution.",
+  "candidate_source_sha256": "029c376929609a8c1c2b4a12d17ba0363a1f8cec5ce59bafdeebbb2b7f916bd8",
+  "baseline": "R10 generic pair32, i64 physical-offset intermediates",
+  "factor": "Use guarded uint32 q/z and packed-scale intermediates only when nonnegative-stride and offset bounds hold; retain i64 fallback. Pair32 dispatch, grid, arithmetic and stores held fixed.",
+  "boundary_test": {
+    "q_max_safe": 2147483647,
+    "q_max_fallback": 2147483648,
+    "test": "MetaX 0.6.1 context-only binder and TTIR/TTGIR/MLIR; device execution NOT_RUN",
+    "negative_stride_device": "NOT_RUN"
+  },
+  "local_cuda": {
+    "environments": [
+      "default",
+      "flagtree061"
+    ],
+    "checks": [
+      "full output",
+      "changed inputs",
+      "q/z non-unit stride",
+      "tail",
+      "scale-layout fallback"
+    ],
+    "status": "PASS_LOCAL_CUDA_WITH_STATED_SCOPE",
+    "timing": "NOT_RUN_GRAPHICS_ACTIVITY"
+  },
+  "cuda_sm120_offline_registers": {
+    "aligned": [
+      30,
+      30
+    ],
+    "qz_nonunit": [
+      30,
+      28
+    ],
+    "odd_k": [
+      32,
+      30
+    ],
+    "flat": [
+      48,
+      48
+    ]
+  },
+  "compiler_evidence": "XPU 0.6.1 and 0.7.1 produced xpubin for specified cases; binary-size movement had opposite signs. This does not establish target speed.",
+  "decision": "NEEDS_TARGET_VERIFICATION at probe; R18 later user-reported 7/7 but combined three changed members, so this factor has no isolated platform performance result.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-generic-offset/reflection.md",
+      "sha256": "160fe27ddae5d93563e5a69b64776a76b7807be4bbf4093515baac62ec0237e4"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-generic-offset/meta-boundary-results.json",
+      "sha256": "cbf3e641d463f3f48b29a7cfd54ec6456d5d6907ce5c92a5255a56d6a2beeb8d"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-generic-cuda-validation/summary.json",
+      "sha256": "5cae0c5465acbf0d88ed97ba69ff74ab9fb0a1ef74f12215789ef7022d12bee9"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-generic-offset/cubin-resources.json",
+      "sha256": "ce5835478532639401d474a2d81bf8b86e087291a8da21f6d59370ee84d28b7b"
+    }
+  ]
+}

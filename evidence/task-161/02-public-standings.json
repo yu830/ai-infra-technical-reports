@@ -1,0 +1,62 @@
+{
+  "scope": "Public leaderboard snapshot. The selected row matches R16, not R18. The rank, rank score and average below are for this public row only.",
+  "public_snapshot": {
+    "local_start": "2026-10-27T23:21:12.129640213+08:00",
+    "local_end": "2026-10-27T23:21:19.300388204+08:00",
+    "page_1_as_of": "2026-10-27T23:21:16.761779",
+    "page_2_as_of": "2026-10-27T23:21:18.652698",
+    "page_delta_seconds": 1.890919
+  },
+  "selected_public_row": {
+    "rank": 2,
+    "average": 29.45557143,
+    "score": 1.81361111,
+    "best_submitted_at": "2026-10-27T22:26:48",
+    "gpu": {
+      "tianshu": [
+        26.11675,
+        1
+      ],
+      "muxi": [
+        40.643,
+        24
+      ],
+      "haiguang": [
+        34.30875,
+        9
+      ],
+      "kunlunxin": [
+        47.22575,
+        2
+      ],
+      "huawei": [
+        20.16125,
+        10
+      ],
+      "card_a": [
+        19.98275,
+        25
+      ],
+      "card_b": [
+        17.75075,
+        48
+      ]
+    }
+  },
+  "classification": "PUBLIC_SELECTED_ROW_MATCHES_R16_NOT_R18_REPORTED_TIME_OR_VALUES",
+  "r18_rank": "UNKNOWN_PUBLIC_SELECTED_ROW_NOT_MATCHED",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r18-feedback2317/receipt-addendum-public-row.json",
+      "sha256": "2018e7679ee1f6c92a166606047be32ca86d2c39fb50dcc8366b3e036f954177"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r18-feedback2317/live-snapshot/comparison.json",
+      "sha256": "0f3f0dbe5baaa93db29c835ee9c7f3b817d8398e13cbf4dcb504a8aad04ad87e"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r18-feedback2317/ab-crossings/README.md",
+      "sha256": "52395d827ee31ac29a2e2de7094712503fbc7e44228b3577891068c1467506ca"
+    }
+  ]
+}

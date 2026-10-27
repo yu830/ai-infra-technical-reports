@@ -1,0 +1,159 @@
+{
+  "scope": "Sanitized extraction, not an independent evaluator receipt. Chip labels for both headerless user reports follow prior task order and are inferred. Remote bytes and server-loaded source are not verified.",
+  "cutoff": "2026-10-27T23:29:48+08:00",
+  "r18": {
+    "platform_displayed_time": "10-27 23:17",
+    "archive_filename": "Task161_awq_dequantize_crosschip_r18_20261027_02a3248.zip",
+    "archive_sha256": "de6f6e3be71d320f943bf52a52e59df59674370e709f7c1faf9ab913a9ca1038",
+    "archive_sha_scope": "EXPECTED_LOCAL_DELIVERY_FILENAME_MATCH_REMOTE_BYTES_UNKNOWN",
+    "source_commit": "02a3248d2681d98d328a9b9352dd12c067659cc5",
+    "source_dirty_at_package": false,
+    "server_actual_loaded_source": "UNKNOWN",
+    "status": "COMPLETED_USER_REPORTED",
+    "all_chip_validity": "PASS_USER_REPORTED_7_OF_7",
+    "reported_passed_chip_count": 7,
+    "required_chip_count": 7,
+    "average_speedup": 29.51,
+    "average_status": "USER_REPORTED_ROUNDED",
+    "chips": {
+      "tianshu": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 26.05,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "muxi": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 40.8,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "haiguang": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 34.25,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "kunlunxin": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 47.18,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "huawei": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 20.59,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_a": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 19.84,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_b": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 17.9,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      }
+    },
+    "evaluation_id": "UNKNOWN_NOT_PROVIDED",
+    "archive_url": "UNKNOWN_NOT_PROVIDED",
+    "remote_archive_identity": "USER_FILENAME_MATCH_ONLY_REMOTE_BYTES_UNKNOWN"
+  },
+  "r17": {
+    "platform_displayed_time": "10-27 23:04",
+    "archive_filename": "Task161_awq_dequantize_metax_half_r17_20261027_440e3bf.zip",
+    "archive_sha256": "fc8bd3515ad566a61cf427f603fcf9e5565831a2b51e81c1f2cf30b7cadfdee2",
+    "archive_sha_scope": "EXPECTED_LOCAL_DELIVERY_FILENAME_MATCH_REMOTE_BYTES_UNKNOWN",
+    "source_commit": "440e3bf8bcdabc3e59b71732bada780cf3357615",
+    "source_dirty_at_package": false,
+    "server_actual_loaded_source": "UNKNOWN",
+    "status": "COMPLETED_USER_REPORTED",
+    "all_chip_validity": "PASS_USER_REPORTED_7_OF_7",
+    "reported_passed_chip_count": 7,
+    "required_chip_count": 7,
+    "average_speedup": 29.47,
+    "average_status": "USER_REPORTED_ROUNDED",
+    "chips": {
+      "tianshu": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 25.94,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "muxi": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 40.81,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "haiguang": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 34.4,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "kunlunxin": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 47.21,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "huawei": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 20.17,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_a": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 19.98,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_b": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 17.79,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      }
+    },
+    "evaluation_id": "UNKNOWN_NOT_PROVIDED",
+    "archive_url": "UNKNOWN_NOT_PROVIDED",
+    "remote_archive_identity": "USER_FILENAME_MATCH_ONLY_REMOTE_BYTES_UNKNOWN"
+  },
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r18-feedback2317/user-report.txt",
+      "sha256": "3d2c657cb137f00f5c4d71d2ec845d01ee92482707d8e940836b5f99e7eae82c"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r18-feedback2317/receipt.json",
+      "sha256": "89666218827a893990e8a09d582d0b1f56e150ebca7abe327ad749120c3a58e2"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r18-feedback2317/reflection.md",
+      "sha256": "de7ab087597d0567c97d6a12c06b5fb483bb1c84a966bae8ef96af0e4af860e6"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r18-feedback2317/local-identity/verification.json",
+      "sha256": "5f39aa5c53ac0fdd612073d8898ed9f3c6d38d934f1642b6ebd78a9b05bbf512"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r17-metax-feedback2304/user-report.txt",
+      "sha256": "a8458e811df9305ea1896d4b21139e544026fccb4a072ea6c249bec9eff00f54"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r17-metax-feedback2304/receipt.json",
+      "sha256": "6424188e83e3eec01826d08ca1605db4b1a340466a756f9f910d5bf6bf005a91"
+    }
+  ],
+  "removed": [
+    "team name from raw user report",
+    "local absolute paths",
+    "machine details and credentials, if any"
+  ]
+}

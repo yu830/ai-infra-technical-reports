@@ -1,0 +1,43 @@
+{
+  "scope": "Hygon-source arithmetic probe and local CUDA validation; HCU compilation uses a hypothetical target, not verified hardware identity.",
+  "baseline_source_sha256": "09b2dace2d250bafc177c4a5bf86d7c4aa27aeff00b1272f34284a011e522a77",
+  "candidate_source_sha256": "45ec8d1e17925ce0abcdbed325f2e2795f46fbfa77b43a92be2f2ca2c2931743",
+  "factor": "Convert q and z nibbles into FP16 bit patterns 0x6400+n, subtract the halves, then keep the scale multiply and vector stores. Wrapper/grid/strides/fallback held fixed.",
+  "hcu_offline": {
+    "baseline_llir_bytes": 13401,
+    "candidate_llir_bytes": 15077,
+    "scope": "TTIR/TTGIR/LLIR for recorded hypothetical gfx936; no device timing"
+  },
+  "local_cuda": {
+    "environments": [
+      "default",
+      "flagtree061"
+    ],
+    "coverage": "all 65536 FP16 encodings x each delta -15..15 x all four row offsets; zero delta occurs twice",
+    "shape": [
+      128,
+      65536
+    ],
+    "group_size": 64,
+    "status": "PASS_LOCAL_CUDA_WITH_STATED_SCOPE",
+    "non_nan_bit_mismatches": 0,
+    "nan_mask_mismatches": 0,
+    "changed_input_reuse": "PASS",
+    "timing": "NOT_RUN_GRAPHICS_ACTIVITY"
+  },
+  "decision": "NEEDS_TARGET_VERIFICATION at probe. R18 includes this Hygon change among three changed members, so the reported aggregate is not an isolated timing.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-hygon-half/reflection.md",
+      "sha256": "3ffd98de9bec64d21f7db570f6c007cfebdd29666f98971b631b6cbeb3cabcd6"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-hygon-cuda-validation/summary.json",
+      "sha256": "6152e0c86436590270422255b414ff5b984452efbb356e49dacfc3ad457514fc"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r17-hygon-cuda-validation/r17-hygon-exhaustive-default-1/result.json",
+      "sha256": "10302ebc12cb41dcd6cbb2c1be16a6134382804d788fd48feef70e3453e742f4"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "scope": "Local one-member package comparison and separate unpaired user-reported platform aggregates. Both reports have no headers; chip column mapping is inferred. Remote bytes and server-loaded source are unknown.",
+  "r7": {
+    "commit": "d4db59942141c525886bfa6431e2755f01de6e03",
+    "local_zip_sha256": "ef135c1cd642a871be82e1690c1eff5ec3642e41bddd9916bd7bd3672802101c",
+    "archive_sha_scope": "EXPECTED_LOCAL_ARCHIVE_FILENAME_MATCH_ONLY_REMOTE_NOT_VERIFIED",
+    "local_huawei_member_sha256": "c38f35e65a62a4e2dfea94337da4f8d2b87578c600d7230c8784fba4b6d97081",
+    "reported_passed": 7,
+    "required": 7,
+    "reported_platform_average": 25.89,
+    "reported_huawei_speedup_inferred_column": 4.13,
+    "server_loaded_source": "UNKNOWN"
+  },
+  "r8": {
+    "commit": "6579fcaa15adad9a6ff667517f1b95e4acbedc54",
+    "local_zip_sha256": "21d1a02ef3e97957265026c71c122889bf71f85a0e5c83652ac692681ce3ca95",
+    "archive_sha_scope": "EXPECTED_LOCAL_DELIVERY_FILENAME_MATCH_ONLY_REMOTE_NOT_VERIFIED",
+    "local_huawei_member_sha256": "c5e9c2b1c5f7d0c6de6de33944fb2ca4edc18cab6ec9053fd22d093704f848f0",
+    "reported_passed": 7,
+    "required": 7,
+    "reported_platform_average": 28.21,
+    "reported_huawei_speedup_inferred_column": 20.12,
+    "server_loaded_source": "UNKNOWN"
+  },
+  "r8_vs_r7_local_package_change": "Only Ascend member changed; five other members byte-identical. R7 FP16 multiply, grid and masks retained; tensor-valued shifts replaced by constant shifts and interleaves.",
+  "offline_recovered_compiler": {
+    "scope": "W128 simulated policy40, multibuffer=true; not the official target compiler or a timing",
+    "scalar_shift_loops_before": 2,
+    "scalar_shift_loops_after": 0,
+    "planned_ub_high_water_bytes_before": 22624,
+    "planned_ub_high_water_bytes_after": 165376,
+    "interpretation": "Removing observed loops trades against a much larger compiler-planned buffer extent; no claim about target memory use or latency."
+  },
+  "local_validation": "R8 exact-source 10 cases per CUDA environment, each base and changed; extracted-member focused W64 in both. NaN payload and target FTZ remain unknown.",
+  "decision": "R8 retained as reported complete development baseline; R7 remains a separate rollback. Later packed-delta scalarization was rejected after reintroducing scalar shifts.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-huawei-f16-affine-r7-delivery/reflection.md",
+      "sha256": "b31c377583d5dd720992b23b4184e22dda5303af1d4a1a41e16708f6c5ad983e"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r8-constantshift-delivery/reflection.md",
+      "sha256": "81817a00d5c4597067109588e5685421d615eb1b7198597c25c337e2e9e8e7ff"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-f16-affine-r7-feedback1205/receipt.json",
+      "sha256": "1a5ea87d0e3eafc41ba314cb2087313dbe324bbbd814e1b584fe77e15b551445"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-f16-affine-r7-feedback1205/user-report.txt",
+      "sha256": "708202d9f37d83b9615c543bd418a468fe09b5dd576f02c45227d032eeb83acd"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-constantshift-r8-feedback1341/receipt.json",
+      "sha256": "ea24476fe53ee40e7ae4e532fd6dbd4cb91cee66ee4056b0910e809ba7558975"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-constantshift-r8-feedback1341/user-report.txt",
+      "sha256": "cf6231672fd0903261d237a6c19564256c5e984670a7064cbadcb85c9a197ed7"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-constantshift-r8-feedback1341/reflection.md",
+      "sha256": "9da8158327649543e859db47a441d7077cf69204add6c19d5014b2ba5780d813"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r8-huawei-scalarization-review/reflection.md",
+      "sha256": "fbabd332efc10d964d50e719151cbfa617395a27c4fdb9d732a99add15da6134"
+    }
+  ]
+}
