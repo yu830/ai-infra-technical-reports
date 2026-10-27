@@ -47,7 +47,7 @@ The following values are from the task leaderboard recorded at 20:14 on October 
 
 The leaderboard reported an average speedup of 10.74142857×, a ranking score of 1.2 and task rank 3. Ranking uses per-device ranks, so the average alone does not determine placement.
 
-The source package examined for this report was the 16:35 candidate on October 22, with source commit identifier 13721f12c6e9 and ZIP SHA-256 cfeabdae2429744f0bfcde72e6530934c3d61b653c0f7f91c410b76f48d2c1f3e. The user-provided platform receipt for that package displayed an average of **10.73×**. The later **10.74×** leaderboard entry is a separate record; the available evidence does not establish that this exact ZIP produced that leaderboard result or identify the source actually loaded by the evaluator.
+The source package examined for this report was the 16:35 candidate on October 22, with source commit identifier 13721f12c6e9 and ZIP SHA-256 cfeabdae2429744f0bfcde72e6530934c3d61b653c0f7f91c410b76f48d2c1f3e. The user-provided platform receipt for that filename displayed an average of **10.73×**. The local ZIP matches the reported filename; the platform's remote ZIP bytes and the evaluator's loaded source have not been independently verified. The later **10.74×** leaderboard entry is a separate record and cannot be bound precisely to this local package.
 
 ## Development tradeoffs
 
