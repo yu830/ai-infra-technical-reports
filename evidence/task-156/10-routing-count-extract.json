@@ -1,0 +1,6 @@
+{
+  "provenance": "Exact line excerpt from the archived project task note; original file retained privately.",
+  "source_artifact_sha256": "7e386d836901ac76c77546d6e8fc43c6c928018a4056b7482c06a3631fe25dcf",
+  "source_locator": "docs/tasks/step_a_q.md lines 448-460",
+  "excerpt": "On the two large public cases, independent host recording gives:\n\n| Source | Projection programs per large case | Weight scratch A/B |\n|---|---:|---:|\n| Generic | 2,048 |0 /0 |\n| Original serial417660 |16,384 |0 /0 |\n| Direct5a7009 |2,097,152 |0 /0 |\n| Packed-vectorf17123 |131,072 |4 /1 MiB |\n\nThus the newer vector scheme reduces program count16x but still misses the\nactual target threshold. Both vector paths process one token per program;\nthey do not reuse weights across token rows inside a program. Program counts\nalone do not locate the runtime bottleneck or predict matrix-unit performance."
+}

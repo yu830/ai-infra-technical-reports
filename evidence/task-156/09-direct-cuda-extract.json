@@ -1,0 +1,582 @@
+{
+  "provenance": "Derived extract; device model, local paths and telemetry removed. Original complete artifact retained privately.",
+  "source_artifact_sha256": "7293afb9f26f42fa8b1be4f7646ec443de27f32446f5374d901e7c77537d6ed9",
+  "device_class": "NVIDIA CUDA GPU",
+  "torch": "2.9.1+cu128",
+  "triton": "3.5.1",
+  "source_sha256": "ae7bb61bc99aa79e3ec2c93ffdab81955ca240a840caec4ce41b36b9a846f977",
+  "initial_source_sha256": "5f31cb9c3f693c7ec487d370ba6525c0325a87d806683544b81b7bb5cbd7ac50",
+  "warmup_calls": 10,
+  "synchronize_before_measurement": true,
+  "timing": "CUDA graph replay with CUDA events; rep_ms per sample",
+  "measurement_isolation": "NOT_VERIFIED; desktop and other GPU workloads may affect samples",
+  "samples": 5,
+  "rep_ms": 30,
+  "coverage": "self-designed; platform shapes UNKNOWN; NVIDIA only",
+  "cases": [
+    {
+      "lengths": [
+        1
+      ],
+      "heads": 8,
+      "k": 128,
+      "rank": 8,
+      "permutation": false,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 3.189923391819982,
+        "min_us": 3.11442933989653,
+        "max_us": 3.308714392838205,
+        "samples_us": [
+          3.308714392838205,
+          3.189923391819982,
+          3.11442933989653,
+          3.1331512742413734,
+          3.21990279449667
+        ]
+      },
+      "initial": {
+        "median_us": 4.710575155973819,
+        "min_us": 4.597978665381253,
+        "max_us": 4.916990448186718,
+        "samples_us": [
+          4.916990448186718,
+          4.710575155973819,
+          4.719805757673756,
+          4.597978665381253,
+          4.698586918780838
+        ]
+      },
+      "initial_over_candidate": 1.4767047911098088,
+      "status": "PASS",
+      "case_index": 0,
+      "compiled": {
+        "route": "direct_tiled",
+        "grid": [
+          1,
+          8,
+          1
+        ],
+        "programs": 8,
+        "block_m": 32,
+        "block_n": 16,
+        "block_k": 64,
+        "promote_inputs": true,
+        "kernel_launches": 2,
+        "scratch_bytes": 0,
+        "registers_per_thread": 48,
+        "spills": 0,
+        "shared_bytes": 12288
+      }
+    },
+    {
+      "lengths": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "heads": 16,
+      "k": 128,
+      "rank": 16,
+      "permutation": true,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 9.694811138944361,
+        "min_us": 9.658346502443495,
+        "max_us": 9.952363979194967,
+        "samples_us": [
+          9.658346502443495,
+          9.952363979194967,
+          9.658721804178947,
+          9.794770587574352,
+          9.694811138944361
+        ]
+      },
+      "initial": {
+        "median_us": 10.065408361454805,
+        "min_us": 9.676533765420443,
+        "max_us": 10.708438282852288,
+        "samples_us": [
+          9.922844502660963,
+          10.065408361454805,
+          10.708438282852288,
+          10.126652920021202,
+          9.676533765420443
+        ]
+      },
+      "initial_over_candidate": 1.0382263478059663,
+      "status": "PASS",
+      "case_index": 1,
+      "compiled": {
+        "grid": [
+          1,
+          16,
+          16
+        ],
+        "programs": 256,
+        "block_k": 128,
+        "kernel_launches": 3,
+        "scratch_bytes": 196608,
+        "registers_per_thread": 34,
+        "spills": 0,
+        "shared_bytes": 16
+      }
+    },
+    {
+      "lengths": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "heads": 16,
+      "k": 128,
+      "rank": 32,
+      "permutation": true,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 45.91211582052296,
+        "min_us": 45.78722675641378,
+        "max_us": 46.149099758098224,
+        "samples_us": [
+          45.834295667451,
+          46.149099758098224,
+          45.91211582052296,
+          45.78722675641378,
+          45.97324272836318
+        ]
+      },
+      "initial": {
+        "median_us": 49.781117113152185,
+        "min_us": 46.0537303277778,
+        "max_us": 50.12937667242631,
+        "samples_us": [
+          46.0537303277778,
+          50.12937667242631,
+          49.781117113152185,
+          50.065731783525656,
+          49.72968974583585
+        ]
+      },
+      "initial_over_candidate": 1.084269723219764,
+      "status": "PASS",
+      "case_index": 2,
+      "compiled": {
+        "grid": [
+          1,
+          32,
+          64
+        ],
+        "programs": 2048,
+        "block_k": 128,
+        "kernel_launches": 3,
+        "scratch_bytes": 393216,
+        "registers_per_thread": 34,
+        "spills": 0,
+        "shared_bytes": 16
+      }
+    },
+    {
+      "lengths": [
+        3,
+        0,
+        5,
+        17
+      ],
+      "heads": 8,
+      "k": 64,
+      "rank": 16,
+      "permutation": true,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 9.07482109571758,
+        "min_us": 9.03585273902733,
+        "max_us": 9.259670575459799,
+        "samples_us": [
+          9.03585273902733,
+          9.108766184112456,
+          9.07482109571758,
+          9.068810527367882,
+          9.259670575459799
+        ]
+      },
+      "initial": {
+        "median_us": 9.084272865487748,
+        "min_us": 8.962309477951727,
+        "max_us": 9.216498065468492,
+        "samples_us": [
+          9.216498065468492,
+          8.968418274969315,
+          9.084272865487748,
+          8.962309477951727,
+          9.131623796514562
+        ]
+      },
+      "initial_over_candidate": 1.0010415378628927,
+      "status": "PASS",
+      "case_index": 3,
+      "compiled": {
+        "grid": [
+          17,
+          8,
+          4
+        ],
+        "programs": 544,
+        "block_k": 64,
+        "kernel_launches": 3,
+        "scratch_bytes": 98304,
+        "registers_per_thread": 33,
+        "spills": 0,
+        "shared_bytes": 8
+      }
+    },
+    {
+      "lengths": [
+        64,
+        32
+      ],
+      "heads": 16,
+      "k": 128,
+      "rank": 32,
+      "permutation": false,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 6.314474902021775,
+        "min_us": 6.2425293938161515,
+        "max_us": 6.431694609476853,
+        "samples_us": [
+          6.431694609476853,
+          6.2425293938161515,
+          6.275147557910023,
+          6.314474902021775,
+          6.376721168752693
+        ]
+      },
+      "initial": {
+        "median_us": 70.48902349170396,
+        "min_us": 70.44978359109915,
+        "max_us": 70.83529082822128,
+        "samples_us": [
+          70.44984840211414,
+          70.48902349170396,
+          70.69735810563371,
+          70.44978359109915,
+          70.83529082822128
+        ]
+      },
+      "initial_over_candidate": 11.163085543207197,
+      "status": "PASS",
+      "case_index": 4,
+      "compiled": {
+        "route": "direct_tiled",
+        "grid": [
+          2,
+          32,
+          2
+        ],
+        "programs": 128,
+        "block_m": 32,
+        "block_n": 16,
+        "block_k": 64,
+        "promote_inputs": true,
+        "kernel_launches": 2,
+        "scratch_bytes": 0,
+        "registers_per_thread": 43,
+        "spills": 0,
+        "shared_bytes": 12288
+      }
+    },
+    {
+      "lengths": [
+        256,
+        256,
+        256,
+        256
+      ],
+      "heads": 16,
+      "k": 128,
+      "rank": 32,
+      "permutation": true,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 681.6091537475586,
+        "min_us": 679.0697945488824,
+        "max_us": 684.7801597750916,
+        "samples_us": [
+          680.290913052029,
+          682.595794145451,
+          684.7801597750916,
+          679.0697945488824,
+          681.6091537475586
+        ]
+      },
+      "initial": {
+        "median_us": 680.8479350546131,
+        "min_us": 677.8127241134644,
+        "max_us": 683.121038942921,
+        "samples_us": [
+          677.8127241134644,
+          683.121038942921,
+          680.8479350546131,
+          678.7481541536292,
+          682.5719638746613
+        ]
+      },
+      "initial_over_candidate": 0.9988832035356917,
+      "status": "PASS",
+      "case_index": 5,
+      "compiled": {
+        "grid": [
+          256,
+          32,
+          4
+        ],
+        "programs": 32768,
+        "block_k": 128,
+        "kernel_launches": 3,
+        "scratch_bytes": 393216,
+        "registers_per_thread": 34,
+        "spills": 0,
+        "shared_bytes": 16
+      }
+    },
+    {
+      "lengths": [
+        1024
+      ],
+      "heads": 32,
+      "k": 128,
+      "rank": 64,
+      "permutation": false,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 130.75679996149324,
+        "min_us": 130.12142406673883,
+        "max_us": 131.18414087334142,
+        "samples_us": [
+          131.14033668271958,
+          130.71799704699012,
+          130.75679996149324,
+          131.18414087334142,
+          130.12142406673883
+        ]
+      },
+      "initial": {
+        "median_us": 2720.691212740812,
+        "min_us": 2706.327362060547,
+        "max_us": 2739.119703119451,
+        "samples_us": [
+          2718.6569595336914,
+          2739.119703119451,
+          2726.5235137939453,
+          2720.691212740812,
+          2706.327362060547
+        ]
+      },
+      "initial_over_candidate": 20.807263664620365,
+      "status": "PASS",
+      "case_index": 6,
+      "compiled": {
+        "route": "direct_tiled",
+        "grid": [
+          32,
+          128,
+          1
+        ],
+        "programs": 4096,
+        "block_m": 32,
+        "block_n": 16,
+        "block_k": 64,
+        "promote_inputs": true,
+        "kernel_launches": 2,
+        "scratch_bytes": 0,
+        "registers_per_thread": 43,
+        "spills": 0,
+        "shared_bytes": 12288
+      }
+    },
+    {
+      "lengths": [
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128
+      ],
+      "heads": 8,
+      "k": 256,
+      "rank": 64,
+      "permutation": true,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 1375.6814523176713,
+        "min_us": 1360.2811639959164,
+        "max_us": 1388.225373767671,
+        "samples_us": [
+          1375.6814523176713,
+          1380.5935237718666,
+          1360.2811639959164,
+          1373.6520593816583,
+          1388.225373767671
+        ]
+      },
+      "initial": {
+        "median_us": 1377.7820950462706,
+        "min_us": 1375.7124582926433,
+        "max_us": 1381.8063281831287,
+        "samples_us": [
+          1377.7820950462706,
+          1375.7124582926433,
+          1381.8063281831287,
+          1375.9294509887695,
+          1379.6387195587158
+        ]
+      },
+      "initial_over_candidate": 1.0015269833907117,
+      "status": "PASS",
+      "case_index": 7,
+      "compiled": {
+        "grid": [
+          1024,
+          32,
+          8
+        ],
+        "programs": 262144,
+        "block_k": 128,
+        "kernel_launches": 3,
+        "scratch_bytes": 786432,
+        "registers_per_thread": 40,
+        "spills": 0,
+        "shared_bytes": 16
+      }
+    },
+    {
+      "lengths": [
+        2048,
+        512
+      ],
+      "heads": 8,
+      "k": 128,
+      "rank": 16,
+      "permutation": true,
+      "dtype": "bfloat16",
+      "candidate": {
+        "median_us": 433.3705408819791,
+        "min_us": 432.19447569413614,
+        "max_us": 435.08223001058997,
+        "samples_us": [
+          432.614685653092,
+          433.4759105335582,
+          435.08223001058997,
+          432.19447569413614,
+          433.3705408819791
+        ]
+      },
+      "initial": {
+        "median_us": 433.0934775503058,
+        "min_us": 430.9585946978945,
+        "max_us": 436.0484004020691,
+        "samples_us": [
+          433.0934775503058,
+          435.8641934085202,
+          436.0484004020691,
+          430.9585946978945,
+          432.6625521220858
+        ]
+      },
+      "initial_over_candidate": 0.9993606779752279,
+      "status": "PASS",
+      "case_index": 8,
+      "compiled": {
+        "grid": [
+          2048,
+          8,
+          2
+        ],
+        "programs": 32768,
+        "block_k": 128,
+        "kernel_launches": 3,
+        "scratch_bytes": 98304,
+        "registers_per_thread": 34,
+        "spills": 0,
+        "shared_bytes": 16
+      }
+    }
+  ]
+}

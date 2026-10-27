@@ -1,0 +1,81 @@
+{
+  "source": "user pasted official Kunlunxin error",
+  "archive": "02-step_a_q-kunlun-guarded-half.zip",
+  "archive_sha256": "489cda8a8568825daf47698c5dfa0b4d31c4de9d3554a4bb33200757084bc1d7",
+  "source_sha256": "15f6a19510ea049627e059e386c4bb04b6d73a048148eb775bba1107605db6f6",
+  "kernel_commit": "3bb8d035a811",
+  "evidence_level": "USER_CONFIRMED_OFFICIAL_TARGET_FAILURE",
+  "target": "kunlunxin",
+  "failure_stage": "NUMERICAL_CORRECTNESS_AFTER_EXECUTION",
+  "root_cause": "UNKNOWN",
+  "decision": "REJECT_AND_WITHDRAW_RECOMMENDATION",
+  "cases": [
+    {
+      "case": 1,
+      "mismatched": 319,
+      "elements": 320,
+      "percentage_reported": 99.7,
+      "max_absolute_error": 25.4609375,
+      "absolute_error_index": [
+        2,
+        2,
+        4
+      ],
+      "max_relative_error": 14.383647918701172,
+      "relative_error_index": [
+        1,
+        3,
+        11
+      ]
+    },
+    {
+      "case": 2,
+      "mismatched": 5606,
+      "elements": 5632,
+      "percentage_reported": 99.5,
+      "max_absolute_error": 60.0,
+      "absolute_error_index": [
+        1,
+        2,
+        22
+      ],
+      "max_relative_error": 1153.5953369140625,
+      "relative_error_index": [
+        2,
+        4,
+        26
+      ]
+    },
+    {
+      "case": 3,
+      "mismatched": 1281771,
+      "elements": 2097152,
+      "percentage_reported": 61.1,
+      "max_absolute_error": 77.125,
+      "absolute_error_index": [
+        399,
+        73,
+        3
+      ],
+      "max_relative_error": 686702.3125,
+      "relative_error_index": [
+        287,
+        27,
+        28
+      ]
+    }
+  ],
+  "atol": 0.015,
+  "rtol": 0.015,
+  "local_cuda_correctness": "PASS_372_historical",
+  "public_xpu_offline_compile_link": "PASS_35_historical",
+  "official_target_correctness": "FAIL",
+  "target_performance": "INVALID_NOT_INTERPRETED",
+  "official_other_chips": "NOT_PROVIDED_FOR_THIS_RECEIPT",
+  "boundaries": [
+    "Not a tolerance-edge error.",
+    "The exact failing stage is not known from final-output comparisons.",
+    "Public compiler IR is redacted and differs from unknown official runtime.",
+    "Old BF16 and FP32 scratch failures are analogous evidence, not proof of the same root cause."
+  ]
+}

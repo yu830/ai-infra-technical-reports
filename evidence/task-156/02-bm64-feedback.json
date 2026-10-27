@@ -1,0 +1,110 @@
+{
+  "recorded_at_utc": "2026-10-21T12:58:35.756170+00:00",
+  "task": "s2t1op156 / step_a_q",
+  "archive": "step_a_q-b1f5aaecc6e1-kunlunxin-override-bm64.zip",
+  "archive_sha256_local": "213a2068cd12886d06ec7d0fda04d8137abca0dbb4736e353a9c59378e2e4d17",
+  "source_commit": "b1f5aaecc6e127f12d82c0b6f77a9286d473bbb2",
+  "source_hashes": {
+    "step_a_q.py": "a3348f007348eb521af74bb23d549f0422084e4876f55ccbd0e94def33583c7c",
+    "step_a_q_kunlunxin.py": "1b3bc8725af07b37c46c3b883055e9d15be952dc2ee2acf79ec2b4e5002bd371"
+  },
+  "artifact_association": "User confirmed BM64 upload path immediately before this feedback; public leaderboard independently matches all seven displayed speedups. Platform-saved archive and loaded source not independently inspected.",
+  "platform_saved_archive_sha256": "NOT_VERIFIED",
+  "evaluator_loaded_source": "NOT_VERIFIED",
+  "user_displayed_speedups": {
+    "tianshu": 6.95,
+    "muxi": 10.02,
+    "enflame": null,
+    "haiguang": 19.55,
+    "kunlunxin": 1.47,
+    "huawei": 3.26,
+    "card_a": 12.1,
+    "card_b": 7.18
+  },
+  "user_displayed_average": 8.65,
+  "public_api_entry": {
+    "rank": 1,
+    "team_id": 3307,
+    "team_name": "YuJiacheng",
+    "is_mine": false,
+    "best_average_speedup": 8.648,
+    "ranking_score": 4.08333333,
+    "expected_gpu_count": 7,
+    "passed_gpu_count": 7,
+    "best_submitted_at": "2026-10-21T20:54:15",
+    "first_valid_submitted_at": "2026-10-21T18:53:32",
+    "gpu_results": [
+      {
+        "gpu": "tianshu",
+        "status": "completed",
+        "passed": true,
+        "speedup": 6.9545,
+        "rank": 2
+      },
+      {
+        "gpu": "muxi",
+        "status": "completed",
+        "passed": true,
+        "speedup": 10.0225,
+        "rank": 1
+      },
+      {
+        "gpu": "haiguang",
+        "status": "completed",
+        "passed": true,
+        "speedup": 19.5465,
+        "rank": 1
+      },
+      {
+        "gpu": "kunlunxin",
+        "status": "completed",
+        "passed": true,
+        "speedup": 1.471,
+        "rank": 2
+      },
+      {
+        "gpu": "huawei",
+        "status": "completed",
+        "passed": true,
+        "speedup": 3.2615,
+        "rank": 4
+      },
+      {
+        "gpu": "card_a",
+        "status": "completed",
+        "passed": true,
+        "speedup": 12.103,
+        "rank": 3
+      },
+      {
+        "gpu": "card_b",
+        "status": "completed",
+        "passed": true,
+        "speedup": 7.177,
+        "rank": 2
+      }
+    ]
+  },
+  "public_snapshot_as_of": "2026-10-21T20:57:28.345131",
+  "comparison": {
+    "prior_kunlunxin": 0.8365,
+    "new_kunlunxin": 1.471,
+    "speedup_score_ratio": 1.7585176329946206,
+    "speedup_score_gain_percent": 75.85176329946206,
+    "prior_kunlunxin_rank": 3,
+    "new_kunlunxin_rank": 2,
+    "prior_average": 8.45685714,
+    "new_average": 8.648,
+    "prior_ranking_score": 4.41666667,
+    "new_ranking_score": 4.08333333,
+    "limit": "Different official submissions, not isolated repeated per-case timing. Other chip ranks also changed; do not attribute ranking-score movement solely to Kunlunxin."
+  },
+  "ROOT_CAUSE": "UNKNOWN (earlier runtime faults and exact performance bottleneck not proven)",
+  "LOCAL_CORRECTNESS": "PASS (preserved pre-submission evidence; no kernel changes this turn)",
+  "KUNLUNXIN_CORRECTNESS": "PASS (user report and matching public official aggregate)",
+  "OFFICIAL_5_CASES": "PASS inferred from chip-level official aggregate; individual case logs unavailable",
+  "OFFICIAL_SEVEN_CHIPS": "PASS (public leaderboard reports 7/7)",
+  "PERFORMANCE": "Kunlunxin 1.471x; seven-chip average 8.648x; per-case times unavailable",
+  "FINAL_DECISION": "ADOPT",
+  "adoption_scope": "Use BM64 b1f5aae as current measured baseline; retain 325f072 unchanged for rollback."
+}

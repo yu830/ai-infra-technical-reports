@@ -1,0 +1,19 @@
+{
+  "source": "user official result table",
+  "submitted": "2026-10-22 16:35 platform time",
+  "file": "01-step_a_q-bn16-for-r16.zip",
+  "zip_sha256": "cfeabdae242974f0bfcde72e6530934c3d61b653c0f7f91c410b76f48d2c1f3e",
+  "passed": "7/7",
+  "display_average": 10.73,
+  "speedups": {
+    "tianshu": 9.72,
+    "muxi": 12.0,
+    "haiguang": 27.45,
+    "kunlunxin": 1.47,
+    "huawei": 2.84,
+    "card_a": 13.83,
+    "card_b": 7.81
+  },
+  "loaded_source_sha": "UNKNOWN",
+  "association": "user filename feedback plus exact local archive; evaluator source not independently downloaded"
+}

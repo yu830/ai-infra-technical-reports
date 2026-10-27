@@ -1,0 +1,40 @@
+{
+  "source": "user pasted official result",
+  "file": "01-step_a_q-hygon-index32.zip",
+  "submission_time": "2026-10-22 19:27 UTC+8",
+  "zip_sha256": "4a0a831c4e1bbbc30ff9c9ea4c6efed2e9e8f08ea404ae4bc1b79580ea7bdfff",
+  "passed": "7/7",
+  "average": 10.68,
+  "speedups": {
+    "iluvatar": 9.73,
+    "metax": 11.99,
+    "hygon": 27.02,
+    "kunlunxin": 1.71,
+    "ascend": 2.65,
+    "card_a": 13.6,
+    "card_b": 8.06
+  },
+  "raw_timings": "UNKNOWN",
+  "receipt_id": "NOT PROVIDED",
+  "official_independently_downloaded_source": "NOT VERIFIED",
+  "evidence_status": "USER_CONFIRMED_OFFICIAL_RESULT",
+  "decision": "NOT_ADOPTED_NO_DEMONSTRATED_GAIN",
+  "hygon_control": {
+    "reference_time": "17:49",
+    "old_speedup": 27.16,
+    "new_speedup": 27.02,
+    "relative_change_percent": -0.5154639175257714,
+    "repeatability": "UNKNOWN; single rounded result, no variance"
+  },
+  "best_whole_submission": {
+    "speedup": 10.73,
+    "time": "16:35",
+    "zip_sha256": "cfeabdae242974f0bfcde72e6530934c3d61b653c0f7f91c410b76f48d2c1f3e"
+  },
+  "claim_boundaries": [
+    "No evidence of a reliable Hygon speedup or a reliable regression from one result.",
+    "Unchanged source means non-Hygon fluctuations cannot be attributed to the added Hygon override.",
+    "Do not combine per-chip maxima into an official score.",
+    "The guarded-half candidate has not inherited this result."
+  ]
+}

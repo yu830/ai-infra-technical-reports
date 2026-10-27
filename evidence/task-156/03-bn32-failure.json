@@ -1,0 +1,28 @@
+{
+  "recorded_at_utc": "2026-10-21T14:29:26.636096+00:00",
+  "source": "user-provided official result and platform artifact URL",
+  "diagnostic_normalization": "HTML escaping and path placeholder normalized; no actual compiler reproducer supplied",
+  "submitted_commit": "8aee5769fa326ad0df68ef7c364b7088125fb29e",
+  "archive_sha256": "8c5ff513925ae6e341589eaa05d711c5eec82f8e16ce81a54000b3f930432468",
+  "artifact_identity": "CONFIRMED byte-for-byte downloaded ZIP match",
+  "loaded_source_identity": "LIKELY chip override renamed step_a_q.py: unique line201 dot; no post-load hash",
+  "chip": "kunlunxin",
+  "case": 1,
+  "failure_stage": "compilation: TritonToLinalgExperimental / TritonPtrToMemref / Canonicalizer pipeline",
+  "root_cause": {
+    "direct": "CONFIRMED linalg.matmul output width mismatch 16 versus32",
+    "trigger": "UNKNOWN evaluator shape/compiler/options/transformation"
+  },
+  "official_compilation": "FAIL",
+  "kunlunxin_correctness": "FAIL (compile prevents evaluation)",
+  "numerical_execution": "NOT_RUN",
+  "remaining_cases": "UNKNOWN",
+  "other_six_chips_this_submission": "UNKNOWN",
+  "official_case_shape_dtype_strides": "UNKNOWN",
+  "official_compiler_build": "UNKNOWN",
+  "performance": "XPU NOT_MEASURED",
+  "final_decision": "REJECT",
+  "adopted_baseline": "b1f5aae BM64/BN16",
+  "offline_compile": "17 historical full builds PASS; eight new alignment controls PASS; official failure NOT_REPRODUCED",
+  "submission_by_assistant": false
+}
