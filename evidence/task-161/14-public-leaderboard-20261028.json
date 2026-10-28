@@ -1,0 +1,103 @@
+{
+  "scope": "Sanitized extraction from the existing unauthenticated public leaderboard capture, pages 1 and 2. The selected displayed row matches the archived R16 values and timestamp, not R19/R20; this is not proof of the evaluator-loaded source or ZIP identity.",
+  "capture_started_at": "2026-10-28T09:58:45.528062+08:00",
+  "leaderboard_page_as_of": [
+    "2026-10-28T09:58:50.376719",
+    "2026-10-28T09:58:51.702947"
+  ],
+  "timezone_scope": "ASIA_TAIPEI_SESSION_INFERRED_FOR_AS_OF",
+  "comparison_written_at": "2026-10-28T10:00:05.414741+08:00",
+  "public_rows_captured": 27,
+  "selected_row": {
+    "rank": 2,
+    "best_average_speedup": 29.45557143,
+    "ranking_score": 1.60818182,
+    "expected_gpu_count": 7,
+    "passed_gpu_count": 7,
+    "best_submitted_at": "2026-10-27T22:26:48",
+    "gpu_results": [
+      {
+        "gpu": "tianshu",
+        "status": "completed",
+        "passed": true,
+        "speedup": 26.11675,
+        "rank": 1
+      },
+      {
+        "gpu": "muxi",
+        "status": "completed",
+        "passed": true,
+        "speedup": 40.643,
+        "rank": 25
+      },
+      {
+        "gpu": "haiguang",
+        "status": "completed",
+        "passed": true,
+        "speedup": 34.30875,
+        "rank": 10
+      },
+      {
+        "gpu": "kunlunxin",
+        "status": "completed",
+        "passed": true,
+        "speedup": 47.22575,
+        "rank": 3
+      },
+      {
+        "gpu": "huawei",
+        "status": "completed",
+        "passed": true,
+        "speedup": 20.16125,
+        "rank": 12
+      },
+      {
+        "gpu": "card_a",
+        "status": "completed",
+        "passed": true,
+        "speedup": 19.98275,
+        "rank": 30
+      },
+      {
+        "gpu": "card_b",
+        "status": "completed",
+        "passed": true,
+        "speedup": 17.75075,
+        "rank": 55
+      }
+    ]
+  },
+  "r19_selected_public_rank": "UNKNOWN_ROW_NOT_MATCHED",
+  "r20_selected_public_rank": "UNKNOWN_ROW_NOT_MATCHED",
+  "independent_page1_crosscheck": {
+    "reported_as_of": "2026-10-28T09:58:57.710943",
+    "capture_file_mtime_asia_taipei": "2026-10-28T09:58:57.956970+08:00",
+    "application_code": 200,
+    "http_status": "NOT_RETAINED_INITIAL_PARSE_ATTEMPT",
+    "raw_capture": {
+      "project_relative_path": "track1/batch11/tasks/Task161/notes/technical-report-20261028-r20/private-evidence/leaderboard-page1.json.gz",
+      "sha256": "9e168f4e379596777d6b8cf55a6890400f0fd16e821f74e68344cdfb7a28cab8",
+      "decoded_sha256": "b248575ccaf995838e14b441604a1999c1dddc8b386693cb5c5b1802e172a147",
+      "encoding": "gzip"
+    },
+    "note": "The initial parser attempted UTF-8 decoding of a gzip response and failed after saving the raw body. The same saved response was decompressed and parsed; no second request was needed."
+  },
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/live-snapshot/report.md",
+      "sha256": "83e65946b0c8596e6a87eb7771ceabde3a0eeb551e42addbca1e7cdce8d958ed"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/live-snapshot/comparison.json",
+      "sha256": "189080a301a67dab7a261f29d08169d06e7bd377265b19fc7c74efc308f999f9"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/live-snapshot/capture-manifest.json",
+      "sha256": "0daf569adec3278a29c38822112440ad71ae3c50c3d947d213844a20a6767b10"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r19-feedback2342/live-snapshot/comparison.json",
+      "sha256": "35e7fe002cfa3372d79c210408c494f19f23ffed9a5bb421ba70fd2f9d700467"
+    }
+  ]
+}

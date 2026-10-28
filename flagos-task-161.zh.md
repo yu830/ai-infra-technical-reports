@@ -1,5 +1,7 @@
 # FlagOS Task 161：从 AWQ 位序到多芯片反量化的决策过程
 
+> 原文保留 R18 截点的历史结论；文末补充截至 2026-10-28 10:00:24（Asia/Taipei）的新证据。
+
 ## 范围与结果
 
 AWQ 将 4-bit 权重和零点打包存储。Task 161 要求把它们与按组保存的 FP16 scale 还原为稠密 FP16 矩阵。真正困难的部分并不只是几次移位：同一种数学操作在不同编译器上的访存、掩码、索引和调度方式可能完全不同，而局部设备时间的改善也未必能转化为完整入口或平台排名的改善。
@@ -89,3 +91,32 @@ R18 的用户转述文本没有表头，以下芯片列名按该任务此前的�
 本报告附带的 evidence JSON 是针对阅读需要整理的去敏摘录，不是原始平台回执。每份摘录保留项目内原件的相对路径与 SHA-256，便于在原工作区追溯原始日志、实验协议、源码和反思。关键源码可在所记 Git commit 中定位，例如 R18 的 `research/awq_dequantize_rank/generic_offset_r17.py`、`research/awq_dequantize_huawei/ascend_groupstream_r17.py` 和 `research/awq_dequantize_word_r1/hygon_half_r17.py`；早期方向及其包也在各摘录中绑定。原始材料不随本报告公开。
 
 候选源码保留 **Copyright 2026, The FlagOS Contributors** 和 Apache-2.0 许可声明，Git 历史记录作者 Yu Jiacheng。开发与报告使用了 OpenAI Codex 等 AI 辅助进行分析、实现、验证与审阅；KernelGen 当时的调用失败，直接实现不归因于 KernelGen。报告保留原有署名与证据边界。
+
+
+## 7. 2026-10-28 增补：完整 tile 掩码与小输入分派
+
+本节补充 R18 截点之后改变判断的证据，以及原报告未收录的一条截点前资源更正。2026-10-28 10:00:24（台北时间）复读时，canonical task 为 active、revision 216，源码工作树 clean、HEAD 为 `e7cf482d2f623d473862f20b071d04ebd80b5885`。最新完整反馈是 R20：用户转述的无表头平台行显示 7/7、算子平均 **29.54×**，显示时间为 00:01，回执实际记录于 09:57。其文件名与本地 ZIP `e590b7adeefdb2de65abab042b6b9868f8bd6db291e6279c183d8dc71376054c` 相符；没有远端 URL，上传字节、评测 ID、逐 case 日志和服务器实际加载源码仍为 `UNKNOWN`。该结果不改变上文作为 R18 历史快照的结论。[R20 原始回执与身份摘录](evidence/task-161/13-r20-small-pair.json)
+
+### R19：只在可以证明完整时取消掩码
+
+R18 的 pair32 将相邻两列解码：同一个 q/zero word 的两次 shift 相差 16，两个 FP16 scale 以 32-bit 读取，两个结果以 32-bit 写回。开发者注意到，对 `total % BLOCK == 0` 的完整 tile，q、zero、scale 的加载和输出写入仍带着可静态消除的 mask；假设是去掉这些保护可能改变目标编译器的 lowering。R19 只针对这个条件使用无掩码读写，真实尾块仍走原 mask，flat fallback、grid、stride/地址保护和数值计算保持；本地 R19 包相对 R18 只更换 generic 成员。
+
+对照包括两套本地 CUDA 的完整输出、变输入、跨行完整 tile、真实尾块、q/zero 非单位 stride 与 scale fallback。离线 TTIR 确认完整 tile 的 load/store 不带 mask，尾块保留 mask；XPU 0.6.1 的 aligned G128 xpubin 为 **2704→2020 B**。但资源观察并非全面改善：原反思中“寄存器没有增加”于 R18 截点前的 23:29:22 被更正，但原报告未收录；CUDA sm120 的 q/zero 非单位 stride G64 例实际上是 **28→30 个寄存器**；是否影响真实 occupancy 或速度未知。首次离线编译脚本引用了旧 baseline 文件而失败，修正源码绑定后才通过，失败记录保留。这些是本地编译器与正确性证据，不是配对目标时延。[R19 掩码与更正记录](evidence/task-161/12-r19-full-tile.json)
+
+R19 包的用户转述反馈显示 7/7、平均 **29.53×**；其本地 ZIP SHA-256 为 `cbb6674377905b3847baeee72f4169dcc9fe15e285c3cc8b35d46b90d6bb43ee`，源码 commit 为 `957a330797b95bfa7a2684a1395fb4f369a9eda8`。随后从用户提供的地址下载的 ZIP 与本地包逐字节一致，六个成员的 hash 和 CRC 也一致；这比 R18 增加了远端**归档**身份核验，仍不证明评测器加载的源码。R18 的 **29.51×** 与 R19 的 **29.53×** 来自不同、未配对的评测，且未变成员对应的显示值也波动，不能把差值归因于掩码移除。R19 因此作为独立的用户转述 7/7 回退保留。[R19 反馈与远端身份](evidence/task-161/12-r19-full-tile.json)
+
+### R20：小输入也走 pair32，随后结果仍不足以确认收益
+
+下一步假设是：小、中型输入在满足对齐和布局条件时，也可能从 pair32 的成对 scale 读取和成对输出写入受益。R20 相对 R19 仅从 `use_pair32` 条件中移除 `total >= 4,194,304` **输出元素**的门槛；BLOCK 选择、grid、scale 的单位内层 stride 与对齐条件、`INDEX32` 和物理 offset 检查、完整 tile/尾块掩码及 flat fallback 都保留。相对 R19，本地 ZIP 也只更换 generic 成员。
+
+默认和 FlagTree 0.6.1 两个本地 CUDA 环境各通过 **13** 个源码绑定的正确性例，覆盖完整输出、变更 q/zero/scale、尾块、q/zero 非单位 stride、scale 布局回退及非有限 scale；其中也有大尺寸 CUDA 用例。CPU interpreter 的小例通过，但在先前 R19 大例超时后，R20 的完整大输出 CPU 检查未重跑。一次 MetaX 边界编译最初因真实 driver 缺少 `mcr/mc_runtime.h` 失败；改用 ContextOnlyDriver 后 16 个边界记录通过，这绕开了该 driver 初始化，不证明真实 driver 已修复。
+
+640 个 ABBA/BAAB 与 A/A 样本只测 Torch meta 分配、wrapper/dispatch 和 launch proxy 记录。以 K32、M24、G32 的一组中位数为例，旧/新为 **8.6286/8.5904 μs**，同批 baseline A/A 为 **9.4354/8.7184 μs**；噪声与离群值使这些 host 数据不能证明 GPU 或目标设备获益。离线 CUDA/XPU 编译通过，也不提供目标时延。[R20 对照与限制](evidence/task-161/13-r20-small-pair.json)
+
+随后用户转述 R20 为 7/7、平均 **29.54×**，这是它自己的反馈，不继承 R19 的 PASS。按既有列序推断，A 从 R19 的 **20.05×** 到 R20 的 **19.99×**，B 从 **18.13×** 到 **18.16×**；两次显示值经过舍入、评测未配对，不能确认 A/B 获益或退化由这一分派改变造成。任务记录因此分别保留 R19、R20 作为用户转述的回退结果，继续寻找能区分 A/B 成本的方案；匿名芯片身份不作推断。
+
+### 新的公开榜单快照与仍缺的证据
+
+2026-10-28 09:58 左右的公开榜单快照覆盖两页、27 行，所显示的团队行是第 **2**、平均 **29.45557143×**、排名积分 **1.60818182**，其提交时间及七个显示值仍匹配先前的 R16 行，而非 R19 或 R20。因此该名次和积分不能赋给 R19/R20；两包的公开名次和积分仍为 `UNKNOWN`。公开行匹配也不证明服务器加载了哪个 ZIP 或成员。[公开快照摘录](evidence/task-161/14-public-leaderboard-20261028.json)
+
+仍需区分：本地 CUDA 已验证的输入范围、离线编译结果、用户转述的目标平台 7/7，以及公开榜单是四类不同证据。R19/R20 的逐 case 配对目标设备时延、服务器实际加载源码和匿名 A/B 的身份均未知；R20 远端 ZIP 字节也未核验。单一有效 ZIP 七芯片分别排名第一的目标依然未建立。新增源码定位为对应 commit 的 `research/awq_dequantize_rank/generic_fulltile_r19.py` 和 `research/awq_dequantize_rank/generic_smallpair_r20.py`；摘录记录原始回执、反思与实验文件的路径和哈希。

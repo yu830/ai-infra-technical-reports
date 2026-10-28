@@ -1,0 +1,234 @@
+{
+  "scope": "Sanitized extraction: local source-bound correctness and offline compilation; platform values are a separate user-forwarded result. Headerless chip labels/statuses are inferred. Remote package bytes, loaded source, and per-case timing are unknown.",
+  "report_cutoff": "2026-10-28T10:00:24+08:00",
+  "baseline_generic_sha256": "31b15b42211117163b6400729e8fb90edc810acafed11564112107ac2c34a3d3",
+  "candidate_generic_sha256": "79c0c67c2d1fa235c9ba4659af0d6267d8ba5a1b3b128c8cc0e21da451f66213",
+  "single_factor": "Remove only total >= 4,194,304 output elements from pair32 eligibility. Keep block selection, grid, alignment/stride and INDEX32 guards, full-tile mask condition, arithmetic and flat fallback.",
+  "local_package_change": "Only awq_dequantize.py differs from local R19 ZIP; other five members match.",
+  "local_cuda": {
+    "status": "PASS_LOCAL_CUDA_WITH_STATED_SCOPE",
+    "case_count_per_environment": 13,
+    "environments": [
+      "default",
+      "flagtree061"
+    ],
+    "coverage": {
+      "strict_full_output_bits": true,
+      "changed_q_z_scale": true,
+      "input_unchanged": true,
+      "output_non_alias": true,
+      "small_pair_block256": true,
+      "large_pair_block1024": true,
+      "masked_tails": true,
+      "qz_nonunit_large": true,
+      "scale_offset_oddrow_fallback": true,
+      "nonfinite_scale": true
+    }
+  },
+  "cpu_interpreter": {
+    "quick_cases": "PASS_INTERPRETER",
+    "large_full_output": "NOT_RUN_NOT_RERUN_AFTER_R19_TIMEOUT",
+    "scope": "Large CPU interpreter coverage uncompleted; separate large local CUDA cases did run."
+  },
+  "offline": {
+    "cuda_sm120": "PASS_OFFLINE",
+    "xpu061_071": "PASS_OFFLINE",
+    "offset_boundary": "16 source-bound context-only compile records PASS after initial driver/header failure",
+    "initial_failure": "Real MetaX driver attempted to use missing mcr/mc_runtime.h; ContextOnlyDriver rerun avoids real-driver setup and does not establish real driver execution."
+  },
+  "wrapper_meta": {
+    "decision": "PASS_CONTEXT_ONLY_NO_TARGET_CLAIM",
+    "protocol": {
+      "rounds": 20,
+      "orders": [
+        "ABBA",
+        "BAAB"
+      ],
+      "baseline_A_A": true,
+      "repeats": {
+        "tiny_g32": 16,
+        "middle_g64": 8,
+        "large_g128": 4,
+        "scale_stride_fallback": 8
+      },
+      "raw_samples": 640
+    },
+    "tiny_g32_ABBA_median_us": {
+      "baseline": 8.6286,
+      "candidate": 8.5904
+    },
+    "tiny_g32_baseline_A_A_median_us": {
+      "baseline_a": 9.4354,
+      "baseline_b": 8.7184
+    },
+    "scope": "Torch meta allocation/dispatch with instrumented launch proxy and record capture; noise/outliers; no GPU kernel or target timing.",
+    "tiny_g32_shape": {
+      "K": 32,
+      "M": 24,
+      "G": 32
+    }
+  },
+  "feedback": {
+    "platform_displayed_time": "10-28 00:01",
+    "recorded_at": "2026-10-28T09:57:38.377714+08:00",
+    "archive_filename": "Task161_awq_dequantize_smallpair_r20_20261027_e7cf482.zip",
+    "archive_sha256": "e590b7adeefdb2de65abab042b6b9868f8bd6db291e6279c183d8dc71376054c",
+    "archive_sha_scope": "LOCAL_DELIVERY_FILENAME_MATCH_REMOTE_BYTES_UNKNOWN",
+    "source_commit": "e7cf482d2f623d473862f20b071d04ebd80b5885",
+    "source_dirty_at_package": false,
+    "server_actual_loaded_source": "UNKNOWN",
+    "status": "COMPLETED_USER_REPORTED",
+    "all_chip_validity": "PASS_USER_REPORTED_7_OF_7",
+    "reported_passed_chip_count": 7,
+    "required_chip_count": 7,
+    "average_speedup": 29.54,
+    "average_status": "USER_REPORTED_ROUNDED",
+    "chips": {
+      "tianshu": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 25.99,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "muxi": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 40.58,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "haiguang": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 34.35,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "kunlunxin": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 47.2,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "huawei": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 20.5,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_a": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 19.99,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_b": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 18.16,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      }
+    },
+    "evaluation_id": "UNKNOWN_NOT_PROVIDED",
+    "remote_archive_identity": "UNKNOWN_NO_URL"
+  },
+  "r19_r20_comparison": {
+    "r19_average_reported": "29.53",
+    "r20_average_reported": "29.54",
+    "chips": {
+      "tianshu": {
+        "r19": "25.92",
+        "r20": "25.99",
+        "r20_minus_r19": "0.07"
+      },
+      "muxi": {
+        "r19": "40.66",
+        "r20": "40.58",
+        "r20_minus_r19": "-0.08"
+      },
+      "haiguang": {
+        "r19": "34.22",
+        "r20": "34.35",
+        "r20_minus_r19": "0.13"
+      },
+      "kunlunxin": {
+        "r19": "47.23",
+        "r20": "47.2",
+        "r20_minus_r19": "-0.03"
+      },
+      "huawei": {
+        "r19": "20.53",
+        "r20": "20.5",
+        "r20_minus_r19": "-0.03"
+      },
+      "card_a": {
+        "r19": "20.05",
+        "r20": "19.99",
+        "r20_minus_r19": "-0.06"
+      },
+      "card_b": {
+        "r19": "18.13",
+        "r20": "18.16",
+        "r20_minus_r19": "0.03"
+      }
+    },
+    "scope": "User-reported rounded values, inferred column mapping, unpaired; no causal inference"
+  },
+  "decision": "R20 is a separate 7/7 user-reported result, but rounded unpaired A/B movements do not establish a speed benefit or breakthrough. No R19 PASS or score is inherited.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-generic-smallpair/selection-review.md",
+      "sha256": "37c1318c3a3f2b51ea603b08c8cd1f1a423e008c2e76e53fb340a3d4516f50cb"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-generic-smallpair/results.json",
+      "sha256": "f0881e0d57dade0c51dc9ea5467c793efaf2c5caa567d7441aacc2c50b5d9dc8"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-generic-smallpair/boundary-initial-failure.json",
+      "sha256": "d97addc7f1fd92f2f30edb4419f2b4a0653afeabcb751268ff42266e0f30f83b"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-generic-smallpair/boundary-results.json",
+      "sha256": "c69451dbf5ee149e0e9f267ff928cc7c78733b54d9e14565e7bb4df8c1c6689a"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-smallpair-cuda-validation/summary.json",
+      "sha256": "2449314966dfdf1cd12c415dd21cef214bc10a51c1e668870eb5137248faf06d"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-wrapper-paired/results-summary.json",
+      "sha256": "b630d6233448e03c8c8a3498e49fc72b95ee3d5d2f75fe4cd897b834b3b5191c"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-delivery-acceptance/delivery-acceptance.json",
+      "sha256": "ca45852e7b83566e033b8b3f3c5ef76dbb99e8663b50d45de364cc6c3f92d3ce"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/artifacts/Task161_awq_dequantize_smallpair_r20_20261027_e7cf482.manifest.json",
+      "sha256": "ddfdaf52585d9a5848254e55a2d4df591c133f28be8ce15e55124f6be6c43e1b"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/user-report.txt",
+      "sha256": "246a4484eb91c24a77ff050cab0ef33a5068dc94728d3803e1b4c641ae4ec304"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/receipt.json",
+      "sha256": "9713d0566e03049a08491834fd2b0f435bca467c6ca896dce5e58a2cbef3745e"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/local-identity.json",
+      "sha256": "d608b37e35b25f2f5e45867af28c90c2a2ab5be47cb5a917f4ebe537392ba32c"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/comparison.json",
+      "sha256": "d47c5e5c17a0238847383f841f3dc01797eaa751acd92a3bca121756d2a1de4d"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261028-official-r20-feedback0001/reflection.md",
+      "sha256": "423d6090c7fae6c4d49858d701be98636bf323721977d87ad124c03c6ba39864"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r20-wrapper-paired/wrapper_abba.py",
+      "sha256": "bd811a4ff9e8f2ce2f2e28df6d7a1ea701c32c96e4d23eb31bac1499cf1e60e3"
+    }
+  ]
+}

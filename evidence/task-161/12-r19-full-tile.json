@@ -1,0 +1,181 @@
+{
+  "scope": "Sanitized extraction: source-bound local CUDA and offline compilation, followed by a separately user-reported platform evaluation. Headerless chip labels and individual statuses are inferred from prior task column order; target per-case logs and server-loaded source are unknown.",
+  "report_cutoff": "2026-10-28T10:00:24+08:00",
+  "baseline_generic_sha256": "029c376929609a8c1c2b4a12d17ba0363a1f8cec5ce59bafdeebbb2b7f916bd8",
+  "candidate_generic_sha256": "31b15b42211117163b6400729e8fb90edc810acafed11564112107ac2c34a3d3",
+  "local_package_change": "Only awq_dequantize.py changed from R18; the other five members have identical local bytes.",
+  "single_factor": "Remove pair32 q/z/scale load and packed output store masks only if total % BLOCK == 0; keep true-tail masks, flat fallback, grid, wrapper guards, strides and arithmetic.",
+  "local_cuda": {
+    "status": "PASS_LOCAL_CUDA_WITH_STATED_SCOPE",
+    "environments": [
+      "default",
+      "flagtree061"
+    ],
+    "coverage": [
+      "full output",
+      "changed inputs",
+      "cross-row full tiles",
+      "true tails",
+      "q/z nonunit strides",
+      "scale layout fallback"
+    ],
+    "target_timing": "NOT_RUN_AT_PROBE"
+  },
+  "offline": {
+    "cuda_sm120_qz_nonunit_registers": [
+      28,
+      30
+    ],
+    "cuda_sm120_aligned_registers": [
+      30,
+      30
+    ],
+    "resource_correction": "The original reflection stated no register increase too broadly; the addendum corrects q/z nonunit from 28 to 30. Occupancy and performance remain unknown.",
+    "xpu061_aligned_xpubin_bytes": [
+      2704,
+      2020
+    ],
+    "xpu061_qz_nonunit_xpubin_bytes": [
+      2760,
+      2012
+    ],
+    "xpu071_aligned_xpubin_bytes": [
+      1628,
+      1480
+    ],
+    "xpu071_qz_nonunit_xpubin_bytes": [
+      1652,
+      1504
+    ],
+    "scope": "Offline compiler artifacts, not target timing.",
+    "resource_correction_recorded_at": "2026-10-27T23:29:22.661339+08:00",
+    "resource_correction_scope": "Recorded before R18 report cutoff but omitted from the R18 report; included here as a correction to the original probe reflection."
+  },
+  "initial_compiler_attempt": "A copied script referenced an old baseline filename and failed; after binding the correct source, offline compilation passed.",
+  "feedback": {
+    "platform_displayed_time": "10-27 23:42",
+    "recorded_at": "2026-10-27T23:44:58.849249+08:00",
+    "archive_filename": "Task161_awq_dequantize_fulltile_r19_20261027_957a330.zip",
+    "archive_sha256": "cbb6674377905b3847baeee72f4169dcc9fe15e285c3cc8b35d46b90d6bb43ee",
+    "archive_sha_scope": "EXPECTED_LOCAL_DELIVERY_FILENAME_MATCH_REMOTE_DOWNLOAD_NOT_YET_VERIFIED",
+    "source_commit": "957a330797b95bfa7a2684a1395fb4f369a9eda8",
+    "source_dirty_at_package": false,
+    "server_actual_loaded_source": "UNKNOWN",
+    "status": "COMPLETED_USER_REPORTED",
+    "all_chip_validity": "PASS_USER_REPORTED_7_OF_7",
+    "reported_passed_chip_count": 7,
+    "required_chip_count": 7,
+    "average_speedup": 29.53,
+    "average_status": "USER_REPORTED_ROUNDED",
+    "chips": {
+      "tianshu": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 25.92,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "muxi": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 40.66,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "haiguang": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 34.22,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "kunlunxin": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 47.23,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "huawei": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 20.53,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_a": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 20.05,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      },
+      "card_b": {
+        "status": "PASS_USER_REPORTED_AGGREGATE_INFERENCE",
+        "speedup": 18.13,
+        "mapping": "INFERRED_PRIOR_TASK161_COLUMN_ORDER_FROM_HEADERLESS_REPORT",
+        "individual_case_logs": "UNKNOWN"
+      }
+    },
+    "evaluation_id": "UNKNOWN_NOT_PROVIDED",
+    "remote_archive_identity": "USER_URL_GIVEN_DOWNLOAD_NOT_YET_VERIFIED"
+  },
+  "remote_archive_verification": {
+    "result": "REMOTE_DOWNLOADED_ZIP_BYTE_EQUAL_LOCAL_DELIVERY",
+    "sha256": "cbb6674377905b3847baeee72f4169dcc9fe15e285c3cc8b35d46b90d6bb43ee",
+    "member_hashes_equal": true,
+    "crc_valid": true,
+    "server_actual_loaded_source": "UNKNOWN",
+    "scope": "Subsequent independent download verification; confirms archive bytes and members, not evaluator-loaded source."
+  },
+  "decision": "R19 is independently user-reported 7/7 and a rollback; the rounded unpaired comparison to R18 does not establish a causal speedup.",
+  "sources": [
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r19-generic-breakthrough/reflection.md",
+      "sha256": "01e910f5a6ac6086146db87b2be7eb45d86e2b50364c7a8dfd19ac88bed5182c"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r19-generic-breakthrough/reflection-addendum-resource-correction.md",
+      "sha256": "b6d7f6ab51b399bd02965bc0fcd7adb3f2b0eb74e15c64c94e612b49c8d19680"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r19-generic-breakthrough/resource-correction.json",
+      "sha256": "612de0da0710bb24261cd37d498d6115eb3ce126a2b29a2627f0f01c204bcc39"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r19-generic-breakthrough/comparison-summary.json",
+      "sha256": "8d7ec725f9be2318313a9066be75793fab425d8b5d03fb18fc2230695bea6756"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r19-generic-cuda-validation/summary.json",
+      "sha256": "23d7a9df6fbf7c93300f885cfa03b6725128e2a413d8ae4063922442ecfc65dd"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-r19-delivery-prep/delivery-reflection.md",
+      "sha256": "5ae2f7b664cadf9f4d6e80d3af5da79ff99cfd2592a70da830754a7e8d50fb7b"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/artifacts/Task161_awq_dequantize_fulltile_r19_20261027_957a330.manifest.json",
+      "sha256": "e04b374ec778c51f548b73a9e9c1f4280840bde36522e3ae481c21d477c62c53"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r19-feedback2342/user-report.txt",
+      "sha256": "5f20a819578230b6eb862db313f1dbc5d5357287036485d83098beeaa5f09541"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r19-feedback2342/receipt.json",
+      "sha256": "f3bf4131475a72eeec839d31ba5352c6ed3f5972f53a165a9afcdf309691b75b"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r19-feedback2342/comparison.json",
+      "sha256": "f51a1235ce5ea70608f452df51a0097b6ec0ffd107e0afeb701797c5bc77783a"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r19-feedback2342/receipt-addendum-remote-identity.json",
+      "sha256": "f6fca646b6c582896fbeca2236891b366d347068abd249fc9ae83f7389f5c683"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r19-feedback2342/remote-verification/verification.json",
+      "sha256": "c03d73902905b9ad62e46f61111e51f4ac9d1fb62ffee6f3bfba409248873c18"
+    },
+    {
+      "project_relative_path": "track1/batch11/tasks/Task161/runs/20261027-official-r19-feedback2342/reflection-addendum-remote-public.md",
+      "sha256": "183af689ba2ff080df1ba95f483754e966bd41dc415a490981858ff89da1b0f3"
+    }
+  ],
+  "feedback_state_scope": "Initial receipt, recorded before remote download verification; its then-pending remote identity is superseded by the subsequent addendum below, without altering the original receipt."
+}
